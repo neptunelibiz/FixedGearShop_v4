@@ -48,9 +48,6 @@ export default {
           }
           vm.pagination.current_page = page;
           vm.paginationProducts(tempProducts);
-          setTimeout(() => {
-            vm.status.isLoading = false;
-          }, 500);
         }
       });
     },
