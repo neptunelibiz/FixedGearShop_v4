@@ -51,7 +51,7 @@
                   <input type="checkbox" value="remember-me"> 記住我
                 </label>
               </div>
-              <button class="btn btn-lg btn-primary btn-block" type="submit">登入</button>
+              <button class="btn btn-lg btn-danger btn-block" type="submit">登入</button>
             </form>
           </div>
         </div>
@@ -80,6 +80,9 @@ export default {
       vm.$http.post(api, vm.user).then((response) => {
         if (response.data.success) {
           vm.$router.push('/dashboard');
+          $('#SigninModal').modal('hide');
+        } else {
+          vm.$bus.$emit('message:push', response.data.message, 'danger');
           $('#SigninModal').modal('hide');
         }
       });

@@ -84,7 +84,8 @@ export default {
 }
 
 .sidebar .nav-link.active{
-  color: #D94600;
+  color: #20c997;
+  font-weight: 700;
 }
 
 .sidebar-heading {
