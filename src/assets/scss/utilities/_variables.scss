@@ -69,7 +69,7 @@ $colors: map-merge(
 );
 
 $primary:       #D94600 !default; // $blue !default;
-$secondary:     $cyan !default; //$gray-600 !default;
+$secondary:     $gray-600 !default;
 $success:       $green !default;
 $info:          $cyan !default;
 $warning:       $yellow !default;
@@ -201,7 +201,7 @@ $box-shadow:                  0 .5rem 1rem rgba($black, .15) !default;
 $box-shadow-lg:               0 1rem 3rem rgba($black, .175) !default;
 
 $component-active-color:      $white !default;
-$component-active-bg:         theme-color("primary") !default;
+$component-active-bg:         $gray-800 !default;
 
 // Typography
 //

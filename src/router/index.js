@@ -6,29 +6,31 @@ Vue.use(VueRouter);
 const routes = [
   {
     path: '/',
-    name: 'Home',
-    component: () => import('../views/Home.vue'),
+    component: () => import('@/components/Front/FrontLayout.vue'),
   },
   {
     path: '/dashboard',
     name: 'Dashboard',
-    component: () => import('../components/Back/BackLayout.vue'),
+    component: () => import('@/components/Back/BackLayout.vue'),
     redirect: '/dashboard/product',
     children: [
       {
         path: 'product',
         name: 'Product',
-        component: () => import('../views/Back/BackProducts.vue'),
+        component: () => import('@/views/Back/BackProducts.vue'),
+        meta: { requiresAuth: true },
       },
       {
         path: 'order',
         name: 'Order',
-        component: () => import('../views/Back/BackOrder.vue'),
+        component: () => import('@/views/Back/BackOrder.vue'),
+        meta: { requiresAuth: true },
       },
       {
         path: 'coupon',
         name: 'Coupon',
-        component: () => import('../views/Back/BackCoupon.vue'),
+        component: () => import('@/views/Back/BackCoupon.vue'),
+        meta: { requiresAuth: true },
       },
     ],
   },
