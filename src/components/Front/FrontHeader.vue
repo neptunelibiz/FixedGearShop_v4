@@ -1,12 +1,12 @@
 <template>
   <header>
-    <nav class="navbar navbar-expand-md navbar-dark fixed-top"
-    :class="{ 'navbar--dark': scrolled }">
+    <nav class="navbar navbar-expand-md"
+    :class="[{ 'navbar--dark': scrolled }, navClass]">
       <div class="container">
-        <a class="navbar-brand" href="#">
+        <router-link class="navbar-brand" to="/">
           <img class="navbar-brand__img"
           :src="require('@/assets/images/WheelTalk_Logo.png')" alt="">
-        </a>
+        </router-link>
         <div class="order-md-1 ml-auto">
           <button type="button" class="btn navbar-iconbtn shadow-none"
           data-toggle="modal" data-target="#SigninModal">
@@ -30,7 +30,7 @@
               <router-link class="nav-link" to="/">首頁</router-link>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="#">產品</a>
+              <router-link class="nav-link" to="/category">產品</router-link>
             </li>
             <li class="nav-item">
               <a class="nav-link" href="#">作者</a>
@@ -177,6 +177,7 @@ export default {
   props: [
     'carts',
     'cartCurrentNumber',
+    'navClass',
   ],
   methods: {
     signin() {
@@ -286,13 +287,21 @@ select.form-control {
 }
 .navbar-iconbtn {
   padding: .75rem 1rem;
+  position: relative;
   color: rgba(white, .5);
   &:hover, &:active, &.active {
     color: white;
     font-weight: 700;
   }
+  .badge {
+    position: absolute;
+    top: .5em;
+    right: .5em;
+    background-color: red;
+    border-radius: 50px;
+    color: #fff;
+  }
 }
-
 .navbar-toggler {
   border: none;
   cursor: pointer;

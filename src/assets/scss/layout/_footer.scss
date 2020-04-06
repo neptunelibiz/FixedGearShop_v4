@@ -3,9 +3,9 @@
   background-color: map-get($theme-colors , light);
   &__logo {
     background-color: map-get($theme-colors , dark);
-    height: 32px;
+    height: 48px;
     @include media-breakpoint-down(md) {
-      height: 16px;
+      height: 24px;
     }
   }
 }

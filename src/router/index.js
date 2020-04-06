@@ -11,7 +11,23 @@ const routes = [
       {
         path: '',
         name: 'Home',
-        component: () => import('../views/Front/Home.vue'),
+        component: () => import('@/views/Front/FrontHome.vue'),
+      },
+      {
+        path: 'category',
+        name: 'Category',
+        component: () => import('@/views/Front/FrontCategory.vue'),
+      },
+    ],
+  },
+  {
+    path: '/detail',
+    component: () => import('@/components/Front/FrontLayout.vue'),
+    children: [
+      {
+        path: ':detailId',
+        name: 'Detail',
+        component: () => import('@/views/Front/FrontDetail.vue'),
       },
     ],
   },

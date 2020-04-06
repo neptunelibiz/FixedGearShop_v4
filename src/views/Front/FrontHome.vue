@@ -1,7 +1,7 @@
 <template>
   <div>
     <loading :active.sync="status.isLoading"/>
-    <front-header :carts="carts"
+    <front-header :carts="carts" :nav-class="['navbar-dark','fixed-top']"
     :cartCurrentNumber="cartCurrentNumber"
     @delete-cart="deleteCart" @update-cart-qty="updateCartQty"/>
     <main>
@@ -41,10 +41,12 @@
                 <p>
                   影片便講述了一位自行車郵差在曼哈頓街頭所經曆的「生死速遞」。
                 </p>
-                <a href="https://en.wikipedia.org/wiki/Premium_Rush" target="_blank"
-                class="btn btn-primary px-5">
-                  了解更多
-                </a>
+                <div class="text-center text-md-left">
+                  <a href="https://en.wikipedia.org/wiki/Premium_Rush" target="_blank"
+                  class="btn btn-primary px-5">
+                    了解更多
+                  </a>
+                </div>
               </div>
             </div>
           </div>
@@ -66,31 +68,35 @@
           </div>
         </div>
         <div class="row">
-          <div class="col-md-3 mt-3 mt-md-0" v-for="product in products.slice(0,4)"
-            :key="product.id">
-            <div class="card card--product">
-              <a href="#" class="card-img" @click.prevent="toDetail(product.id)">
-                <img :src="product.imageUrl" alt="" class="img-fluid">
-              </a>
-              <div class="card-body">
-                <h5 class="card-title">{{product.title}}</h5>
-                <div class="cardPrice">
-                  <span class="cardPrice__title" v-if="product.price">
-                    {{product.price | currency}}
-                  </span>
-                  <span v-if="!product.price">
-                    {{product.origin_price | currency}}
-                  </span>
-                  <del class="cardPrice__subtitle" v-if="product.price">
-                    {{product.origin_price | currency}}
-                  </del>
+          <div class="col">
+            <swiper class="swiper h-100"
+            :options="swiperOptionMuch">
+              <swiper-slide v-for="product in filterProducts" :key="product.id">
+                <div class="card card--product">
+                  <a href="#" class="card-img" @click.prevent="toDetail(product.id)">
+                    <img :src="product.imageUrl" alt="" class="img-fluid">
+                  </a>
+                  <div class="card-body">
+                    <h5 class="card-title">{{product.title}}</h5>
+                    <div class="cardPrice">
+                      <span class="cardPrice__title" v-if="product.price">
+                        {{product.price | currency}}
+                      </span>
+                      <span v-if="!product.price">
+                        {{product.origin_price | currency}}
+                      </span>
+                      <del class="cardPrice__subtitle" v-if="product.price">
+                        {{product.origin_price | currency}}
+                      </del>
+                    </div>
+                  </div>
+                  <button type="button" class="btn btn-danger"
+                    @click="addToCart(product.id)">
+                    加入購物車
+                  </button>
                 </div>
-              </div>
-              <button type="button" class="btn btn-danger"
-                @click="addToCart(product.id)">
-                加入購物車
-              </button>
-            </div>
+              </swiper-slide>
+            </swiper>
           </div>
         </div>
       </section>
@@ -119,10 +125,12 @@
                 <p>
                   僅提供現場車款，不收取任何費用。
                 </p>
-                <a href="https://en.wikipedia.org/wiki/Premium_Rush" target="_blank"
-                class="btn btn-primary px-5">
-                  預約體驗
-                </a>
+                <div class="text-center text-md-left">
+                  <a href="https://en.wikipedia.org/wiki/Premium_Rush" target="_blank"
+                  class="btn btn-primary px-5">
+                    預約體驗
+                  </a>
+                </div>
               </div>
             </div>
           </div>
@@ -133,7 +141,7 @@
           <h2 class="mb-3 l-section__title">專業推薦</h2>
         </div>
         <div class="row">
-          <div class="col-4">
+          <div class="col-md-4">
             <figure class="p-sectionImage p-sectionImage--4">
               <figcaption>
                 <a href="http://www.wheeltalkfixed.com/2017/fgfs-portland-day-1/"
@@ -144,7 +152,7 @@
               </figcaption>
             </figure>
           </div>
-          <div class="col-4">
+          <div class="col-md-4">
             <figure class="p-sectionImage p-sectionImage--5">
               <figcaption>
                 <a href="http://www.wheeltalkfixed.com/2018/fixed-gear-portland-this-is-a-sign/"
@@ -155,7 +163,7 @@
               </figcaption>
             </figure>
           </div>
-          <div class="col-4">
+          <div class="col-md-4">
             <figure class="p-sectionImage p-sectionImage--6">
               <figcaption>
                 <a href="http://www.wheeltalkfixed.com/2017/mash-parallax-turning-of-the-tide/"
@@ -176,12 +184,14 @@
 // mixins
 import getProducts from '@/mixins/getProducts';
 import cart from '@/mixins/cart';
+import toDetail from '@/mixins/toDetail';
+import swiperData from '@/mixins/swiperData';
 // components
 import FrontHeader from '@/components/Front/FrontHeader.vue';
 import FrontHomeVideo from '@/components/Front/FrontHomeVideo.vue';
 
 export default {
-  name: 'Home',
+  name: 'FrontHome',
   data() {
     return {
       status: {
@@ -192,6 +202,8 @@ export default {
   mixins: [
     getProducts,
     cart,
+    toDetail,
+    swiperData,
   ],
   components: {
     FrontHeader,
@@ -208,6 +220,15 @@ export default {
       });
       // 字串排序
       return temp.sort(() => 0 - 1);
+    },
+    filterProducts() {
+      const temp = [...this.allProducts];
+      // 空字串反轉 true
+      if (!this.categoryProduct) {
+        return temp;
+      }
+      const filter = temp.filter((element) => (element.category === this.categoryProduct));
+      return filter;
     },
   },
   created() {

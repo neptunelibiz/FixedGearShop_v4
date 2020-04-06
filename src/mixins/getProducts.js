@@ -12,7 +12,7 @@ export default {
         current_page: 1,
         has_pre: false,
         has_next: false,
-        eachPageItem: 10,
+        eachPageItem: 8,
       },
       searchProduct: '',
       categoryProduct: '',
