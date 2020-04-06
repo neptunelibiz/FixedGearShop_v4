@@ -1,22 +1,20 @@
 <template>
   <div>
     <shared-alert/>
-    <front-header/>
-    <main>
-      <router-view/>
-    </main>
+    <router-view/>
+    <front-footer/>
   </div>
 </template>
 
 <script>
 // components
-import FrontHeader from '@/components/Front/FrontHeader.vue';
 import SharedAlert from '@/components/Shared/SharedAlert.vue';
+import FrontFooter from '@/components/Front/FrontFooter.vue';
 
 export default {
   components: {
-    FrontHeader,
     SharedAlert,
+    FrontFooter,
   },
 };
 </script>

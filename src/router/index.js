@@ -7,6 +7,13 @@ const routes = [
   {
     path: '/',
     component: () => import('@/components/Front/FrontLayout.vue'),
+    children: [
+      {
+        path: '',
+        name: 'Home',
+        component: () => import('../views/Front/Home.vue'),
+      },
+    ],
   },
   {
     path: '/dashboard',

@@ -16,8 +16,10 @@ export default {
       vm.$http.get(api).then((response) => {
         if (response.data.success) {
           vm.product = response.data.product;
+          vm.status.isLoading = false;
         } else {
           vm.$bus.$emit('message:push', response.data.message, 'danger');
+          vm.status.isLoading = false;
         }
       });
     },

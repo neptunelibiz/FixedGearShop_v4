@@ -1,0 +1,39 @@
+.card.card--product {
+  height: 100%;
+  border: none;
+  .card-img {
+    img {
+      display: block;
+      height: 180px;
+      margin: 0 auto;
+    }
+  }
+  .card-title {
+    text-align: center;
+  }
+  .cardPrice {
+    display: flex;
+    justify-content: center;
+    align-items: baseline;
+    font-weight: 700;
+    .cardPrice__subtitle {
+      color: $gray-600;
+      font-size: .8em;
+    }
+    .cardPrice__title {
+      color: map-get($theme-colors, danger);
+      margin-right: .5em;
+    }
+  }
+  .btn {
+    @include media-breakpoint-up(md) {
+      opacity: 0;
+      transition: opacity .8s ease;
+    }
+  }
+  &:hover {
+    .btn {
+      opacity: 1;
+    }
+  }
+}

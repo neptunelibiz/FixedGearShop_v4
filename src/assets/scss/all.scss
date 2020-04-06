@@ -4,4 +4,11 @@
 @import '~bootstrap/scss/bootstrap';
 
 // compontent
+@import './compontent/card';
 
+// layout
+@import './layout/footer';
+@import './layout/main';
+
+// pages
+@import './pages/index';

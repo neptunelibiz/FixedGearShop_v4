@@ -48,6 +48,7 @@ export default {
           }
           vm.pagination.current_page = page;
           vm.paginationProducts(tempProducts);
+          vm.status.isLoading = false;
         }
       });
     },

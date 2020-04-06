@@ -1,0 +1,40 @@
+.p-sectionImage {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 0;
+  align-items: center;
+  background-position: center;
+  background-size: cover;
+  height: 320px;
+  width: 100%;
+  .p-sectionImage__text {
+    display: block;
+    text-align: center;
+    text-decoration: none;
+    color: map-get($theme-colors, dark);
+    transition: color .3s ease;
+    background-color: $white;
+    padding: .5rem .8rem;
+    &:hover,&:active {
+      color: map-get($theme-colors, primary);
+    }
+  }
+  &.p-sectionImage--1 {
+    background-image: url('~@/assets/images/section/section_1.png');
+  }
+  &.p-sectionImage--2 {
+    background-image: url('~@/assets/images/section/section_2.png');
+  }
+  &.p-sectionImage--3 {
+    background-image: url('~@/assets/images/section/section_3.png');
+  }
+  &.p-sectionImage--4 {
+    background-image: url('~@/assets/images/section/section_4.png');
+  }
+  &.p-sectionImage--5 {
+    background-image: url('~@/assets/images/section/section_5.png');
+  }
+  &.p-sectionImage--6 {
+    background-image: url('~@/assets/images/section/section_6.png');
+  }
+}

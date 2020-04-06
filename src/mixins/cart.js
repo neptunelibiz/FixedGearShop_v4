@@ -20,6 +20,7 @@ export default {
         if (response.data.success) {
           vm.carts = response.data.data;
           vm.cartCurrentNumber = vm.carts.carts.length;
+          vm.status.isLoading = false;
         }
       });
     },
@@ -62,12 +63,12 @@ export default {
           vm.$http.delete(api).then((responseB) => {
             if (responseB.data.success) {
               vm.getCart();
-              vm.$bus.$emit('message:push', '寵物數量已更新', 'success');
+              vm.$bus.$emit('message:push', '數量已更新', 'success');
             }
           });
         } else {
           vm.getCart();
-          vm.$bus.$emit('message:push', '寵物數量更新失敗', 'danger');
+          vm.$bus.$emit('message:push', '數量更新失敗', 'danger');
         }
       });
     },
