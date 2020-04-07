@@ -5,6 +5,10 @@ Vue.use(VueRouter);
 
 const routes = [
   {
+    path: '*',
+    component: () => import('@/views/Front/FrontHome.vue'),
+  },
+  {
     path: '/',
     component: () => import('@/components/Front/FrontLayout.vue'),
     children: [
@@ -33,6 +37,17 @@ const routes = [
         path: ':detailId',
         name: 'Detail',
         component: () => import('@/views/Front/FrontDetail.vue'),
+      },
+    ],
+  },
+  {
+    path: '/cartorder',
+    component: () => import('@/components/Front/FrontLayout.vue'),
+    children: [
+      {
+        path: ':orderId',
+        name: 'CartOrder',
+        component: () => import('@/views/Front/FrontCartOrder.vue'),
       },
     ],
   },

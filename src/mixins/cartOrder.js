@@ -35,7 +35,7 @@ export default {
       const form = { ...vm.form };
       vm.$http.post(api, { data: form }).then((response) => {
         if (response.data.success) {
-          vm.$router.push(`/cartorderpay/${response.data.orderId}`);
+          vm.$router.push(`/cartorder/${response.data.orderId}`);
         }
       });
     },

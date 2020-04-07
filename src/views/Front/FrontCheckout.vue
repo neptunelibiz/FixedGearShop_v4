@@ -1,7 +1,7 @@
 <template>
   <div>
     <loading :active.sync="status.isLoading"/>
-    <front-header :carts="carts" :nav-class="['navbar-dark','bg-dark']"
+    <front-header :carts="carts" :nav-class="['navbar-dark','bg-black']"
     :cartCurrentNumber="cartCurrentNumber"
     @delete-cart="deleteCart" @update-cart-qty="updateCartQty"/>
     <main class="container">
