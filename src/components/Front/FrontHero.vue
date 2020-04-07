@@ -56,7 +56,7 @@ export default {
   display: flex;
   justify-content: center;
   align-items: center;
-  background-image: url('~@/assets/images/FrontHero2.png');
+  background-image: url('~@/assets/images/FrontHero.png');
   background-size: cover;
   background-position: top center;
   width: 100%;
