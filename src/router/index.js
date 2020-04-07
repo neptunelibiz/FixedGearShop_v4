@@ -18,6 +18,11 @@ const routes = [
         name: 'Category',
         component: () => import('@/views/Front/FrontCategory.vue'),
       },
+      {
+        path: 'checkout',
+        name: 'Checkout',
+        component: () => import('@/views/Front/FrontCheckout.vue'),
+      },
     ],
   },
   {

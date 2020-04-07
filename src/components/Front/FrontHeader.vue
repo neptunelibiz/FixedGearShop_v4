@@ -44,8 +44,8 @@
     aria-labelledby="cartModalLabel" aria-hidden="true">
       <div class="modal-dialog" :class="{'modal-lg': cartCurrentNumber > 0}"
       role="document">
-        <div class="modal-content">
-          <div class="modal-header">
+        <div class="modal-content bg-dark text-white">
+          <div class="modal-header border-0">
             <h5 class="modal-title" id="cartModalLabel">購物車</h5>
             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
               <span aria-hidden="true">&times;</span>
@@ -53,13 +53,13 @@
           </div>
           <div class="modal-body">
             <div class="table-responsive-lg" v-if="cartCurrentNumber > 0">
-              <table class="table text-center">
+              <table class="table table-dark table-hover text-nowrap text-center">
                 <thead class="thead-light">
-                  <th class="text-nowrap" style="width: 5rem">刪除</th>
-                  <th style="min-width: 8rem">品名</th>
-                  <th class="text-nowrap" style="width: 8rem">數量</th>
-                  <th class="text-nowrap" style="width: 5rem">單價</th>
-                  <th class="text-nowrap" style="width: 5rem">總計</th>
+                  <th style="width: 5%">刪除</th>
+                  <th>品名</th>
+                  <th style="width: 10%">數量</th>
+                  <th>單價</th>
+                  <th>總計</th>
                 </thead>
                 <tbody>
                   <tr v-for="(cart,key) in carts.carts" :key="key">
@@ -76,31 +76,29 @@
                       </div>
                     </td>
                     <td class="align-middle">
-                      <div class="input-group input-group-sm">
-                        <div class="input-group-prepend d-none d-md-block">
-                          <button class="btn btn-primary"
-                          :disabled="cart.qty === 1"
-                          @click="cart.qty -= 1;
+                      <div class="inputGroup">
+                        <button class="btn inputGroup__minusBtn"
+                        :disabled="cart.qty === 1"
+                        @click="cart.qty--;
+                        updateCartQty(cart.product_id, cart.qty, cart.id);">
+                          <i class="fas fa-minus"></i>
+                        </button>
+                        <input type="text" class="form-control" v-model="cart.qty"
+                        disabled>
+                        <button class="btn inputGroup__plusBtn"
+                        :disabled="cart.qty === 10"
+                          @click="cart.qty++;
                           updateCartQty(cart.product_id, cart.qty, cart.id);">
-                            <i class="fas fa-minus"></i>
-                          </button>
-                        </div>
-                        <select class="form-control" v-model="cart.qty"
-                        @change="updateCartQty(cart.product_id, cart.qty, cart.id)">
-                          <option :value="num" v-for="num in 10" :key="num">{{num}}</option>
-                        </select>
-                        <div class="input-group-append d-none d-md-block">
-                          <button class="btn btn-primary"
-                          :disabled="cart.qty === 10"
-                          @click="cart.qty += 1;
-                          updateCartQty(cart.product_id, cart.qty, cart.id);">
-                            <i class="fas fa-plus"></i>
-                          </button>
-                        </div>
+                          <i class="fas fa-plus"></i>
+                        </button>
                       </div>
                     </td>
-                    <td class="align-middle text-right">{{ cart.total | currency}}</td>
-                    <td class="align-middle text-right">{{ cart.final_total | currency}}</td>
+                    <td class="align-middle text-right">
+                      {{ cart.total | currency}}
+                    </td>
+                    <td class="align-middle text-right">
+                      {{ cart.final_total | currency}}
+                    </td>
                   </tr>
                 </tbody>
                 <tfoot>
@@ -115,12 +113,22 @@
                 </tfoot>
               </table>
             </div>
+            <div class="l-sectionImage l-sectionImage--1" v-else>
+              <div class="l-sectionImage__text bg-opacity-white text-dark">
+                <h3>目前購物車內容是空的</h3>
+                <P>請點擊下方的按鈕</P>
+                <router-link to="/category" class="btn btn-danger px-3"
+                data-dismiss="modal">
+                  前往產品
+                </router-link>
+              </div>
+            </div>
           </div>
-          <div class="modal-footer" v-if="cartCurrentNumber > 0">
-            <button type="button" class="btn btn-dark"
+          <div class="modal-footer border-0" v-if="cartCurrentNumber > 0">
+            <button type="button" class="btn btn-outline-light px-4"
             data-dismiss="modal">取消</button>
-            <router-link class="btn btn-primary" to="/cartorder"
-            data-dismiss="modal">確定</router-link>
+            <router-link class="btn btn-danger px-4" to="/checkout"
+            data-dismiss="modal">結帳</router-link>
           </div>
         </div>
       </div>
@@ -209,7 +217,7 @@ export default {
       if (currentScrollPosition < 0) {
         return;
       }
-      this.scrolled = currentScrollPosition > 40;
+      this.scrolled = currentScrollPosition > 1;
     },
   },
   mounted() {
@@ -222,10 +230,19 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-
-.navbar.fixed-top.navbar--dark {
+.bg-opacity-white {
+  background-color: rgba(white, .8);
+  border-radius: 20px;
+  padding: 2rem;
+}
+.navbar.navbar--dark {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 99;
   background-color: rgba(black,.9);
-  transition: all .8s ease-in-out;
+  transition: all .5s ease;
 }
 // 根據 bootstrap 修改原有 className
 .formSignin {

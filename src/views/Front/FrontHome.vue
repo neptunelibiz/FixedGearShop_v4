@@ -10,8 +10,8 @@
         <h2 class="l-section__title">分類導覽</h2>
         <div class="row">
           <div class="col-md-4" v-for="(category, index) in getCategory" :key="index">
-            <figure class="p-sectionImage" :class="`p-sectionImage--${index + 1}`">
-              <figcaption><a href="#" class="p-sectionImage__text h3">{{category}}</a></figcaption>
+            <figure class="l-sectionImage" :class="`l-sectionImage--${index + 1}`">
+              <figcaption><a href="#" class="l-sectionImage__text h3">{{category}}</a></figcaption>
             </figure>
           </div>
         </div>
@@ -106,7 +106,7 @@
           <div class="container">
             <div class="row flex-md-row-reverse align-items-center">
               <div class="col-md-6">
-                <figure class="p-sectionImage p-sectionImage--4"/>
+                <figure class="l-sectionImage l-sectionImage--4"/>
               </div>
               <div class="col-md-6 l-section__about p-md-5 py-5">
                 <h3 class="h4">
@@ -142,10 +142,10 @@
         </div>
         <div class="row">
           <div class="col-md-4">
-            <figure class="p-sectionImage p-sectionImage--4">
+            <figure class="l-sectionImage l-sectionImage--4">
               <figcaption>
                 <a href="http://www.wheeltalkfixed.com/2017/fgfs-portland-day-1/"
-                class="p-sectionImage__text" target="_blank">
+                class="l-sectionImage__text" target="_blank">
                   FGFS PORTLAND<br/>
                   <small>October 2, 2017</small>
                 </a>
@@ -153,10 +153,10 @@
             </figure>
           </div>
           <div class="col-md-4">
-            <figure class="p-sectionImage p-sectionImage--5">
+            <figure class="l-sectionImage l-sectionImage--5">
               <figcaption>
                 <a href="http://www.wheeltalkfixed.com/2018/fixed-gear-portland-this-is-a-sign/"
-                class="p-sectionImage__text" target="_blank">
+                class="l-sectionImage__text" target="_blank">
                   FIXED GEAR PORTLAND<br/>
                   <small>March 25, 2018</small>
                 </a>
@@ -164,10 +164,10 @@
             </figure>
           </div>
           <div class="col-md-4">
-            <figure class="p-sectionImage p-sectionImage--6">
+            <figure class="l-sectionImage l-sectionImage--6">
               <figcaption>
                 <a href="http://www.wheeltalkfixed.com/2017/mash-parallax-turning-of-the-tide/"
-                class="p-sectionImage__text" target="_blank">
+                class="l-sectionImage__text" target="_blank">
                   MASH PARALLAX<br/>
                   <small>October 25, 2017</small>
                 </a>

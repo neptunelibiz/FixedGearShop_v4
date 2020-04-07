@@ -140,7 +140,7 @@ export default {
 };
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
   .nav-link.active {
     color: #8d82a4;
   }
