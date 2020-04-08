@@ -35,10 +35,10 @@
         </h2>
         <div class="bg-light">
           <div class="container">
-            <div class="row align-items-center">
-              <div class="col-md-6 p-0" id="playerContainer">
+            <div class="row align-items-center" id="playerContainer">
+              <div class="col-md-6 p-0">
                 <lazy-youtube-video
-                v-if="windowHeight > elHeight"
+                v-if="videoplayed"
                 :autoplay="true"
                 src="https://www.youtube.com/embed/Pn6ie1zCkZU"
                 aspectRatio="4:3"/>
@@ -224,8 +224,7 @@ export default {
       status: {
         isLoading: false,
       },
-      elHeight: 0,
-      windowHeight: 0,
+      videoplayed: false,
     };
   },
   mixins: [
@@ -247,9 +246,21 @@ export default {
       }, 500);
       this.$router.push('/category');
     },
-    scrollAutoPlay() {
-      this.windowHeight = window.scrollY;
-      this.elHeight = document.querySelector('#playerContainer').offsetHeight;
+    playedScrollObserver() {
+      const vm = this;
+      // Intersection Observer Web API
+      // 監聽元素區塊
+      const intersectionObserver = new IntersectionObserver((entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            vm.videoplayed = true;
+          } else {
+            vm.videoplayed = false;
+          }
+        });
+      });
+      const el = document.querySelector('#playerContainer');
+      intersectionObserver.observe(el);
     },
   },
   computed: {
@@ -279,10 +290,9 @@ export default {
   created() {
     this.getProducts();
     this.getCart();
-    window.addEventListener('scroll', this.scrollAutoPlay);
   },
-  destroyed() {
-    window.removeEventListener('scroll', this.scrollAutoPlay);
+  mounted() {
+    this.playedScrollObserver();
   },
 };
 </script>
