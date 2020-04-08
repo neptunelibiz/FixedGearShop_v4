@@ -93,7 +93,7 @@
                   <img :src="product.imageUrl" alt="" class="img-fluid">
                 </a>
                 <div class="card-body">
-                  <h5 class="card-title">{{ product.title }}</h5>
+                  <h5 class="card-title text-truncate">{{ product.title }}</h5>
                   <div class="cardPrice">
                     <span class="cardPrice__title" v-if="product.price">
                       {{ product.price | currency }}
