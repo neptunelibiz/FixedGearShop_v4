@@ -1,7 +1,11 @@
 <template>
   <div>
-    <loading :active.sync="status.isLoading"/>
-    <front-header :carts="carts" :nav-class="['navbar-dark','bg-black']"
+    <loading :active.sync="status.isLoading">
+      <template name="default">
+        <div class="lds-ripple"><div></div><div></div></div>
+      </template>
+    </loading>
+    <front-header :carts="carts" :nav-class="[ 'navbar-dark','bg-black' ]"
     :cartCurrentNumber="cartCurrentNumber"
     @delete-cart="deleteCart" @update-cart-qty="updateCartQty"/>
     <main class="container">
@@ -13,20 +17,26 @@
             <table class="table">
               <thead class="thead-dark text-center">
                 <th>品名</th>
-              <th>數量</th>
+                <th>數量</th>
                 <th>單價</th>
               </thead>
               <tbody>
                 <tr v-for="item in order.products" :key="item.id">
-                  <td class="align-middle text-center">{{ item.product.title }}</td>
-                  <td class="align-middle text-center">{{ item.qty }}/{{ item.product.unit }}</td>
-                  <td class="align-middle text-right">{{ item.final_total | currency }}</td>
+                  <td class="align-middle text-center">
+                    {{ item.product.title }}
+                  </td>
+                  <td class="align-middle text-center">
+                    {{ item.qty }}/{{ item.product.unit }}
+                  </td>
+                  <td class="align-middle text-right">
+                    {{ item.final_total | currency }}
+                  </td>
                 </tr>
               </tbody>
               <tfoot>
                 <tr>
                   <td colspan="2" class="text-right">總計</td>
-                  <td class="text-right">{{ order.total | currency}}</td>
+                  <td class="text-right">{{ order.total | currency }}</td>
                 </tr>
               </tfoot>
             </table>
@@ -71,20 +81,28 @@
             <table class="table">
               <thead class="thead-dark text-center">
                 <th>品名</th>
-              <th>數量</th>
+                <th>數量</th>
                 <th>單價</th>
               </thead>
               <tbody>
                 <tr v-for="item in order.products" :key="item.id">
-                  <td class="align-middle text-center">{{ item.product.title }}</td>
-                  <td class="align-middle text-center">{{ item.qty }}/{{ item.product.unit }}</td>
-                  <td class="align-middle text-right">{{ item.final_total | currency }}</td>
+                  <td class="align-middle text-center">
+                    {{ item.product.title }}
+                  </td>
+                  <td class="align-middle text-center">
+                    {{ item.qty }}/{{ item.product.unit }}
+                  </td>
+                  <td class="align-middle text-right">
+                    {{ item.final_total | currency }}
+                  </td>
                 </tr>
               </tbody>
               <tfoot>
                 <tr>
                   <td colspan="2" class="text-right">總計</td>
-                  <td class="text-right">{{ order.total | currency}}</td>
+                  <td class="text-right">
+                    {{ order.total | currency }}
+                  </td>
                 </tr>
               </tfoot>
             </table>
@@ -128,7 +146,7 @@ export default {
     getOrder() {
       const vm = this;
       const api = `${process.env.VUE_APP_API_PATH}/api/${process.env.VUE_APP_CUSTOM_PATH}/order/${vm.orderId}`;
-      this.$http.get(api).then((response) => {
+      vm.$http.get(api).then((response) => {
         if (response.data.success) {
           vm.order = response.data.order;
         }
@@ -138,10 +156,12 @@ export default {
       const vm = this;
       const api = `${process.env.VUE_APP_API_PATH}/api/${process.env.VUE_APP_CUSTOM_PATH}/pay/${vm.orderId}`;
       vm.status.isLoading = true;
-      this.$http.post(api).then((response) => {
+      vm.$http.post(api).then((response) => {
         if (response.data.success) {
-          this.getOrder();
-          vm.status.isLoading = false;
+          vm.getOrder();
+          setTimeout(() => {
+            vm.status.isLoading = false;
+          }, 500);
         }
       });
     },

@@ -1,16 +1,16 @@
-.inputGroup {
+.c-inputGroup {
   position: relative;
   min-width: 8rem;
   .form-control {
     text-align-last: center;
     background-color: #fff;
   }
-  .inputGroup__minusBtn {
+  .c-inputGroup__minusBtn {
     position: absolute;
     top: 0;
     left: 0;
   }
-  .inputGroup__plusBtn {
+  .c-inputGroup__plusBtn {
     position: absolute;
     top: 0;
     right: 0;

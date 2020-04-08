@@ -1,6 +1,10 @@
 <template>
   <div>
-    <loading :active.sync="status.isLoading" :is-full-page="true"/>
+    <loading :active.sync="status.isLoading">
+      <template name="default">
+        <div class="lds-ripple"><div></div><div></div></div>
+      </template>
+    </loading>
     <div class="form-inline my-2">
       <input class="form-control form-control-sm w-50 mr-auto"
       type="text" placeholder="Search 請按 Enter"
@@ -8,42 +12,44 @@
       <button class="btn btn-sm btn-primary"
       @click="openModal(true)">新增產品</button>
     </div>
-    <table class="table table-sm table-hover">
-      <thead>
-        <tr class="text-center">
-          <th scope="col" style="width: 8%">類別</th>
-          <th scope="col" >名稱</th>
-          <th scope="col" style="width: 12%">原價</th>
-          <th scope="col" style="width: 12%">售價</th>
-          <th scope="col" style="width: 8%">單位</th>
-          <th scope="col" style="width: 12%">狀態</th>
-          <th scope="col" style="width: 12%">編輯</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr class="text-center" v-for="(product) in products" :key="product.id">
-          <td scope="row" class="align-middle">{{product.category}}</td>
-          <td class="align-middle">{{product.title}}</td>
-          <td class="text-right align-middle">{{product.origin_price | currency}}</td>
-          <td class="text-right align-middle">{{product.price | currency}}</td>
-          <td class="align-middle">{{product.unit}}</td>
-          <td v-if="product.is_enabled" class="text-success align-middle">已啟用</td>
-          <td v-else class="text-danger align-middle">未啟用</td>
-          <td class="align-middle">
-            <div class="btn-group btn-group-sm" role="group">
-              <button type="button" class="btn btn-primary"
-              @click="openModal(false,product)">
-                編輯
-              </button>
-              <button type="button" class="btn btn-outline-danger"
-              @click="openDelModal(product)">
-                刪除
-              </button>
-            </div>
-          </td>
-        </tr>
-      </tbody>
-    </table>
+    <div class="table-responsive-lg mb-3">
+      <table class="table table-sm text-nowrap table-hover">
+        <thead>
+          <tr class="text-center">
+            <th scope="col" style="width: 8%">類別</th>
+            <th scope="col" >名稱</th>
+            <th scope="col" style="width: 12%">原價</th>
+            <th scope="col" style="width: 12%">售價</th>
+            <th scope="col" style="width: 8%">單位</th>
+            <th scope="col" style="width: 12%">狀態</th>
+            <th scope="col" style="width: 12%">編輯</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr class="text-center" v-for="(product) in products" :key="product.id">
+            <td scope="row" class="align-middle">{{ product.category }}</td>
+            <td class="align-middle">{{ product.title }}</td>
+            <td class="text-right align-middle">{{ product.origin_price | currency }}</td>
+            <td class="text-right align-middle">{{ product.price | currency }}</td>
+            <td class="align-middle">{{ product.unit }}</td>
+            <td v-if="product.is_enabled" class="text-success align-middle">已啟用</td>
+            <td v-else class="text-danger align-middle">未啟用</td>
+            <td class="align-middle">
+              <div class="btn-group btn-group-sm" role="group">
+                <button type="button" class="btn btn-primary"
+                @click="openModal(false,product)">
+                  編輯
+                </button>
+                <button type="button" class="btn btn-outline-danger"
+                @click="openDelModal(product)">
+                  刪除
+                </button>
+              </div>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
     <shared-pagination :pagesData="pagination" @current-page="getProducts"/>
     <!-- Modal -->
     <div class="modal fade" id="productModal" tabindex="-1" role="dialog"
@@ -144,7 +150,9 @@
             <div class="modal-footer border-0">
               <button type="button" class="btn px-4 btn-outline-white"
               data-dismiss="modal">取消</button>
-              <button type="submit" class="btn px-4 btn-danger" :disabled="invalid">確認</button>
+              <button type="submit" class="btn px-4 btn-danger" :disabled="invalid">
+                確認
+              </button>
             </div>
           </form>
         </ValidationObserver>

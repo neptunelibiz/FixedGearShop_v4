@@ -10,13 +10,13 @@
         <div class="order-md-1 ml-auto">
           <button type="button" class="btn navbar-iconbtn shadow-none"
           data-toggle="modal" data-target="#SigninModal">
-            <i class="fas fa-user-cog"/>
+            <span class="fas fa-user-cog"></span>
           </button>
           <button class="btn navbar-iconbtn shadow-none"
           data-toggle="modal" data-target="#cartModal">
-            <i class="fas fa-shopping-cart"/>
+            <span class="fas fa-shopping-cart"></span>
             <span class="badge badge-primary" v-if="cartCurrentNumber> 0">
-              {{cartCurrentNumber}}
+              {{ cartCurrentNumber }}
             </span>
           </button>
         </div>
@@ -30,10 +30,15 @@
               <router-link class="nav-link" to="/">首頁</router-link>
             </li>
             <li class="nav-item">
-              <router-link class="nav-link" to="/category">產品</router-link>
+              <router-link class="nav-link" to="/category">
+                產品
+              </router-link>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="#">作者</a>
+              <a class="nav-link" href="https://github.com/Albertnotes"
+              target="_blank">
+                作者
+              </a>
             </li>
           </ul>
         </div>
@@ -42,18 +47,20 @@
     <!-- Cart Modal -->
     <div class="modal fade" id="cartModal" tabindex="-1" role="dialog"
     aria-labelledby="cartModalLabel" aria-hidden="true">
-      <div class="modal-dialog" :class="{'modal-lg': cartCurrentNumber > 0}"
-      role="document">
+      <div class="modal-dialog"
+      :class="{ 'modal-lg': cartCurrentNumber > 0 }" role="document">
         <div class="modal-content bg-dark text-white">
           <div class="modal-header border-0">
             <h5 class="modal-title" id="cartModalLabel">購物車</h5>
-            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <button type="button" class="close"
+            data-dismiss="modal" aria-label="Close">
               <span aria-hidden="true">&times;</span>
             </button>
           </div>
           <div class="modal-body">
             <div class="table-responsive-lg" v-if="cartCurrentNumber > 0">
-              <table class="table table-dark table-hover text-nowrap text-center">
+              <table class="table table-dark table-hover
+              text-nowrap text-center">
                 <thead class="thead-light">
                   <th style="width: 5%">刪除</th>
                   <th>品名</th>
@@ -64,7 +71,8 @@
                 <tbody>
                   <tr v-for="(cart,key) in carts.carts" :key="key">
                     <td class="align-middle">
-                      <button type="button" class="btn btn-outline-danger btn-sm"
+                      <button type="button"
+                      class="btn btn-outline-danger btn-sm"
                       @click="deleteCart(cart.id)">
                         <i class="far fa-trash-alt"></i>
                       </button>
@@ -76,48 +84,50 @@
                       </div>
                     </td>
                     <td class="align-middle">
-                      <div class="inputGroup">
-                        <button class="btn inputGroup__minusBtn"
+                      <div class="c-inputGroup">
+                        <button class="btn c-inputGroup__minusBtn"
                         :disabled="cart.qty === 1"
                         @click="cart.qty--;
                         updateCartQty(cart.product_id, cart.qty, cart.id);">
-                          <i class="fas fa-minus"></i>
+                          <span class="fas fa-minus"></span>
                         </button>
-                        <input type="text" class="form-control" v-model="cart.qty"
-                        disabled>
-                        <button class="btn inputGroup__plusBtn"
+                        <input type="text" class="form-control" v-model="cart.qty" disabled>
+                        <button class="btn c-inputGroup__plusBtn"
                         :disabled="cart.qty === 10"
                           @click="cart.qty++;
                           updateCartQty(cart.product_id, cart.qty, cart.id);">
-                          <i class="fas fa-plus"></i>
+                          <span class="fas fa-plus"></span>
                         </button>
                       </div>
                     </td>
                     <td class="align-middle text-right">
-                      {{ cart.total | currency}}
+                      {{ cart.total | currency }}
                     </td>
                     <td class="align-middle text-right">
-                      {{ cart.final_total | currency}}
+                      {{ cart.final_total | currency }}
                     </td>
                   </tr>
                 </tbody>
                 <tfoot>
                   <tr>
                     <td colspan="4" class="text-right">總計</td>
-                    <td class="text-right">{{ carts.total | currency}}</td>
+                    <td class="text-right">{{ carts.total | currency }}</td>
                   </tr>
                   <tr v-if="carts.final_total !== carts.total">
                     <td colspan="4" class="text-right text-success">折扣價</td>
-                    <td class="text-right text-success">{{ carts.final_total | currency}}</td>
+                    <td class="text-right text-success">{{ carts.final_total | currency }}</td>
                   </tr>
                 </tfoot>
               </table>
             </div>
-            <div class="l-sectionImage l-sectionImage--1" v-else>
-              <div class="l-sectionImage__text bg-opacity-white text-dark">
-                <h3>目前購物車內容是空的</h3>
-                <P>請點擊下方的按鈕</P>
-                <router-link to="/category" class="btn btn-danger px-3"
+            <div class="l-cartImage" v-else>
+              <img class="img-fluid" :src="require('@/assets/images/cartImage.png')" alt="">
+              <div class="l-cartImage__text">
+                <h4 class="font-weight-bold">
+                  購物車是空的<br/>
+                  請先去逛一逛賣場
+                </h4>
+                <router-link to="/category" class="btn btn-danger"
                 data-dismiss="modal">
                   前往產品
                 </router-link>
@@ -230,11 +240,6 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.bg-opacity-white {
-  background-color: rgba(white, .8);
-  border-radius: 20px;
-  padding: 2rem;
-}
 .navbar.navbar--dark {
   position: fixed;
   top: 0;
@@ -244,7 +249,6 @@ export default {
   background-color: rgba(black,.9);
   transition: all .5s ease;
 }
-// 根據 bootstrap 修改原有 className
 .formSignin {
   width: 100%;
   max-width: 330px;

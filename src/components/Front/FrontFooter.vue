@@ -1,6 +1,15 @@
 <template>
-  <footer class="l-footer py-5">
+  <footer class="l-footer position-relative py-5">
     <div class="container">
+      <div class="row">
+        <div class="c-mouse">
+          <a href="#" class="c-mouse__icon" @click.prevent="scrollToTop">
+            <div class="c-mouse__icon__wheel">
+              <span class="fas fa-chevron-up"></span>
+            </div>
+          </a>
+        </div>
+      </div>
       <div class="row">
         <div class="col-md-6">
           <h2>
@@ -13,27 +22,27 @@
           <h5 class="text-right">友站連結</h5>
           <ul class="nav justify-content-end">
             <li>
-              <a href="https://www.facebook.com/WheelTalkFixed/" class="h2 mr-3"
-              target="_blank">
-                <i class="fab fa-facebook"></i>
+              <a href="https://www.facebook.com/WheelTalkFixed/"
+              class="h2 mr-3" target="_blank">
+                <span class="fab fa-facebook"></span>
               </a>
             </li>
             <li>
-              <a href="https://www.instagram.com/Slumworm/" class="h2 mr-3"
-              target="_blank">
-                <i class="fab fa-instagram"></i>
+              <a href="https://www.instagram.com/Slumworm/"
+              class="h2 mr-3" target="_blank">
+                <span class="fab fa-instagram"></span>
               </a>
             </li>
             <li>
               <a href="https://twitter.com/Slumworm" class="h2 mr-3"
               target="_blank">
-                <i class="fab fa-twitter"></i>
+                <span class="fab fa-twitter"></span>
               </a>
             </li>
             <li>
               <a href="https://github.com/Albertnotes" class="h2"
               target="_blank">
-                <i class="fab fa-github"></i>
+                <span class="fab fa-github"></span>
               </a>
             </li>
           </ul>
@@ -42,3 +51,18 @@
     </div>
   </footer>
 </template>
+
+<script>
+export default {
+  name: 'FrontFooter',
+  methods: {
+    scrollToTop() {
+      window.scrollTo({
+        top: 0,
+        left: 0,
+        behavior: 'smooth',
+      });
+    },
+  },
+};
+</script>

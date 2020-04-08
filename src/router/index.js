@@ -10,7 +10,7 @@ const routes = [
   },
   {
     path: '/',
-    component: () => import('@/components/Front/FrontLayout.vue'),
+    component: () => import('@/views/Front/FrontLayout.vue'),
     children: [
       {
         path: '',
@@ -31,7 +31,7 @@ const routes = [
   },
   {
     path: '/detail',
-    component: () => import('@/components/Front/FrontLayout.vue'),
+    component: () => import('@/views/Front/FrontLayout.vue'),
     children: [
       {
         path: ':detailId',
@@ -42,7 +42,7 @@ const routes = [
   },
   {
     path: '/cartorder',
-    component: () => import('@/components/Front/FrontLayout.vue'),
+    component: () => import('@/views/Front/FrontLayout.vue'),
     children: [
       {
         path: ':orderId',
@@ -54,7 +54,7 @@ const routes = [
   {
     path: '/dashboard',
     name: 'Dashboard',
-    component: () => import('@/components/Back/BackLayout.vue'),
+    component: () => import('@/views/Back/BackLayout.vue'),
     redirect: '/dashboard/product',
     children: [
       {

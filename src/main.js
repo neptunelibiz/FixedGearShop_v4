@@ -17,10 +17,10 @@ import date from './filters/date';
 
 Vue.use(VueAwesomeSwiper);
 Vue.use(VueAxios, axios);
+axios.defaults.withCredentials = true;
 Vue.component('Loading', Loading);
 Vue.filter('currency', currencyFilter);
 Vue.filter('date', date);
-axios.defaults.withCredentials = true;
 Vue.config.productionTip = false;
 
 new Vue({

@@ -43,12 +43,16 @@ export default {
           if (tempProducts.length === 0) {
             vm.$bus.$emit('message:push', '查詢失敗', 'danger');
             vm.searchProduct = '';
-            vm.status.isLoading = false;
+            setTimeout(() => {
+              vm.status.isLoading = false;
+            }, 500);
             return;
           }
           vm.pagination.current_page = page;
           vm.paginationProducts(tempProducts);
-          vm.status.isLoading = false;
+          setTimeout(() => {
+            vm.status.isLoading = false;
+          }, 500);
         }
       });
     },

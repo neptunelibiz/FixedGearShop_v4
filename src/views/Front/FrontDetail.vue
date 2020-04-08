@@ -1,15 +1,25 @@
 <template>
   <div>
-    <loading :active.sync="status.isLoading"/>
-    <front-header :carts="carts" :nav-class="['navbar-dark','bg-black']"
+    <loading :active.sync="status.isLoading">
+      <template name="default">
+        <div class="lds-ripple"><div></div><div></div></div>
+      </template>
+    </loading>
+    <front-header :carts="carts" :nav-class="[ 'navbar-dark','bg-black' ]"
     :cartCurrentNumber="cartCurrentNumber"
     @delete-cart="deleteCart" @update-cart-qty="updateCartQty"/>
     <main class="container">
       <nav aria-label="breadcrumb">
         <ol class="breadcrumb bg-transparent border-bottom rounded-0 h5 mb-0">
-          <li class="breadcrumb-item"><router-link to="/">首頁</router-link></li>
-          <li class="breadcrumb-item"><router-link to="/category">產品</router-link></li>
-          <li class="breadcrumb-item active">{{product.category}}</li>
+          <li class="breadcrumb-item">
+            <router-link to="/">首頁</router-link>
+          </li>
+          <li class="breadcrumb-item">
+            <router-link to="/category">產品</router-link>
+          </li>
+          <li class="breadcrumb-item active">
+            {{ product.category }}
+          </li>
         </ol>
       </nav>
       <section class="row l-section">
@@ -17,11 +27,11 @@
           <img class="img-fluid mx-auto d-block" :src="product.imageUrl" alt="">
         </div>
         <div class="col-md-5">
-          <h3 class="mb-5">{{product.title}}</h3>
+          <h3 class="mb-5">{{ product.title }}</h3>
           <h5>規格</h5>
-          <p>{{product.description}}</p>
+          <p>{{ product.description }}</p>
           <h5>說明</h5>
-          <p>{{product.content}}</p>
+          <p>{{ product.content }}</p>
           <div class="my-4 py-2 bg-light text-center">
             <span class="fas fa-truck mr-3"></span>
             <span>免運費</span>
@@ -29,34 +39,36 @@
           <div class="d-flex justify-content-between align-items-center py-3">
             <div>
               <h6 class="font-weight-bold" v-if="!product.price">
-                {{product.origin_price | currency}}
+                {{ product.origin_price | currency }}
               </h6>
               <del class="small text-muted font-weight-bold" v-if="product.price">
-                {{product.origin_price | currency}}
+                {{ product.origin_price | currency }}
               </del>
               <h5 class="text-danger font-weight-bold" v-if="product.price">
-                {{product.price | currency}}
+                {{ product.price | currency }}
               </h5>
             </div>
             <div class="text-muted">
               <span v-if="!product.price">
-                小計 {{product.origin_price * cartNumber | currency}}
+                小計 {{ product.origin_price * cartNumber | currency }}
               </span>
               <span v-if="product.price">
-                小計 {{product.price * cartNumber | currency}}
+                小計 {{ product.price * cartNumber | currency }}
               </span>
             </div>
           </div>
-          <div class="d-flex justify-content-between align-items-md-center flex-column flex-md-row">
-            <div class="inputGroup mb-3 mr-md-3 mb-md-0">
-              <button class="btn inputGroup__minusBtn"
+          <div class="
+          d-flex justify-content-between
+          align-items-md-center flex-column flex-md-row">
+            <div class="c-inputGroup mb-3 mr-md-3 mb-md-0">
+              <button class="btn c-inputGroup__minusBtn"
               :disabled="cartNumber === 1"
               @click="cartNumber--">
                 <i class="fas fa-minus"></i>
               </button>
-              <input type="text" class="form-control" v-model="cartNumber"
-              disabled>
-              <button class="btn inputGroup__plusBtn"
+              <input type="text" class="form-control"
+              v-model="cartNumber" disabled>
+              <button class="btn c-inputGroup__plusBtn"
               :disabled="cartNumber === 10"
                 @click="cartNumber++">
                 <i class="fas fa-plus"></i>
@@ -81,16 +93,16 @@
                   <img :src="product.imageUrl" alt="" class="img-fluid">
                 </a>
                 <div class="card-body">
-                  <h5 class="card-title">{{product.title}}</h5>
+                  <h5 class="card-title">{{ product.title }}</h5>
                   <div class="cardPrice">
                     <span class="cardPrice__title" v-if="product.price">
-                      {{product.price | currency}}
+                      {{ product.price | currency }}
                     </span>
                     <span v-if="!product.price">
-                      {{product.origin_price | currency}}
+                      {{ product.origin_price | currency }}
                     </span>
                     <del class="cardPrice__subtitle" v-if="product.price">
-                      {{product.origin_price | currency}}
+                      {{ product.origin_price | currency }}
                     </del>
                   </div>
                 </div>
@@ -144,9 +156,10 @@ export default {
   },
   computed: {
     filterProducts() {
+      const vm = this;
       const temp = [...this.allProducts];
       const filter = temp.filter((element) => (
-        element.category === this.product.category));
+        element.category === vm.product.category));
       return filter;
     },
   },

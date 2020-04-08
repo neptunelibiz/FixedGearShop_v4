@@ -20,7 +20,9 @@ export default {
         if (response.data.success) {
           vm.carts = response.data.data;
           vm.cartCurrentNumber = vm.carts.carts.length;
-          vm.status.isLoading = false;
+          setTimeout(() => {
+            vm.status.isLoading = false;
+          }, 500);
         }
       });
     },

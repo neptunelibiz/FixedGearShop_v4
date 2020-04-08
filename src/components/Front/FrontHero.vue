@@ -43,7 +43,7 @@
 
 <script>
 export default {
-  name: 'FrontHomeVideo',
+  name: 'FrontHero',
   props: {
     containerStyle: String,
   },

@@ -8,7 +8,7 @@
         即日起輸入 FixedGearLove<br/>
         享受最高 20% 折扣
       </h2>
-      <a href="#" class="btn btn-lg btn-danger px-5">前往購買</a>
+      <router-link to="/category" class="btn btn-lg btn-danger px-5">前往購買</router-link>
     </div>
   </section>
 </template>

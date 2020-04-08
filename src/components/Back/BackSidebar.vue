@@ -9,19 +9,19 @@
         <li class="nav-item">
           <router-link class="nav-link" to="/dashboard/product">
             產品管理
-            <i class="fas fa-desktop"></i>
+            <span class="fas fa-desktop"></span>
           </router-link>
         </li>
         <li class="nav-item">
           <router-link class="nav-link" to="/dashboard/order">
             訂單管理
-            <i class="fas fa-inbox"></i>
+            <span class="fas fa-inbox"></span>
           </router-link>
         </li>
         <li class="nav-item">
           <router-link class="nav-link" to="/dashboard/coupon">
             優惠卷
-            <i class="fas fa-money-check-alt"></i>
+            <span class="fas fa-money-check-alt"></span>
           </router-link>
         </li>
       </ul>

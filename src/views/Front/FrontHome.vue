@@ -1,31 +1,49 @@
 <template>
   <div>
-    <loading :active.sync="status.isLoading"/>
-    <front-header :carts="carts" :nav-class="['navbar-dark','fixed-top']"
+    <loading :active.sync="status.isLoading">
+      <template name="default">
+        <div class="lds-ripple"><div></div><div></div></div>
+      </template>
+    </loading>
+    <front-header :carts="carts" :nav-class="[ 'navbar-dark','fixed-top' ]"
     :cartCurrentNumber="cartCurrentNumber"
     @delete-cart="deleteCart" @update-cart-qty="updateCartQty"/>
     <main>
-      <front-home-video :container-style="'height: 70vh'"/>
+      <keep-alive>
+        <front-home-video :container-style="'height: 70vh'"/>
+      </keep-alive>
       <section class="container l-section">
-        <h2 class="l-section__title">分類導覽</h2>
+        <h2 class="l-section__title">
+          分類導覽
+        </h2>
         <div class="row">
           <div class="col-md-4" v-for="(category, index) in getCategory" :key="index">
             <figure class="l-sectionImage" :class="`l-sectionImage--${index + 1}`">
-              <figcaption><a href="#" class="l-sectionImage__text h3">{{category}}</a></figcaption>
+              <figcaption>
+                <a href="#" class="l-sectionImage__text h3"
+                @click.prevent="toCategory(category)">
+                  {{ category }}
+                </a>
+              </figcaption>
             </figure>
           </div>
         </div>
       </section>
       <section class="l-section">
-        <h2 class="l-section__title">影片介紹</h2>
+        <h2 class="l-section__title">
+          影片介紹
+        </h2>
         <div class="bg-light">
           <div class="container">
             <div class="row align-items-center">
-              <div class="col-md-6 align-self-stretch">
-                <iframe style="height: 100%; width: 100%; min-height: 320px;"
-                src="https://www.youtube.com/embed/Pn6ie1zCkZU"></iframe>
+              <div class="col-md-6 p-0" id="playerContainer">
+                <lazy-youtube-video
+                v-if="windowHeight > elHeight"
+                :autoplay="true"
+                src="https://www.youtube.com/embed/Pn6ie1zCkZU"
+                aspectRatio="4:3"/>
               </div>
-              <div class="col-md-6 l-section__about p-md-5 py-5">
+              <div class="col-md-6 l-section__about p-5">
                 <p>
                   Fixed Gear 的真正興起要歸功於紐約的 Bike Messenger 們，
                   時間撥回上個世紀 70 年代末，美國的汽車數量和出行使用率呈
@@ -54,7 +72,9 @@
       </section>
       <section class="container l-section">
         <div class="text-center mb-5">
-          <h2 class="mb-3 l-section__title">新品上市</h2>
+          <h2 class="mb-3 l-section__title">
+            新品上市
+          </h2>
           <div class="btn-group" role="group">
             <button type="button" class="btn btn-outline-primary"
             @click.prevent="categoryProduct = ''; searchProduct = ''; getProducts()">
@@ -63,7 +83,7 @@
             <button type="button" class="btn btn-outline-primary"
             @click.prevent="categoryProduct = category; searchProduct = ''; getProducts()"
             v-for="(category, index) in getCategory" :key="index">
-              {{category}}
+              {{ category }}
             </button>
           </div>
         </div>
@@ -77,16 +97,18 @@
                     <img :src="product.imageUrl" alt="" class="img-fluid">
                   </a>
                   <div class="card-body">
-                    <h5 class="card-title">{{product.title}}</h5>
+                    <h5 class="card-title text-truncate">
+                      {{ product.title }}
+                    </h5>
                     <div class="cardPrice">
                       <span class="cardPrice__title" v-if="product.price">
-                        {{product.price | currency}}
+                        {{ product.price | currency }}
                       </span>
                       <span v-if="!product.price">
-                        {{product.origin_price | currency}}
+                        {{ product.origin_price | currency }}
                       </span>
                       <del class="cardPrice__subtitle" v-if="product.price">
-                        {{product.origin_price | currency}}
+                        {{ product.origin_price | currency }}
                       </del>
                     </div>
                   </div>
@@ -101,36 +123,37 @@
         </div>
       </section>
       <section class="l-section">
-        <h2 class="l-section__title l-section__title--maginTop">現場體驗</h2>
+        <h2 class="l-section__title l-section__title--marginTop">
+          現場體驗
+        </h2>
         <div class="bg-light">
           <div class="container">
             <div class="row flex-md-row-reverse align-items-center">
               <div class="col-md-6">
-                <figure class="l-sectionImage l-sectionImage--4"/>
+                <figure class="l-sectionImage l-sectionImage--4"></figure>
               </div>
-              <div class="col-md-6 l-section__about p-md-5 py-5">
+              <div class="col-md-6 l-section__about p-md-5 py-5 text-center text-md-right">
                 <h3 class="h4">
                   想體驗方式如下：
                 </h3>
                 <ul class="list-unstyled px-3">
                   <li>
-                    <span class="far fa-clock mr-3 text-center" style="width: 16px;"/>
+                    <span class="far fa-clock" style="width: 16px;"></span>
                     每週一、三下午14:00 - 17:00
                   </li>
                   <li>
-                    <span class="fas fa-map-marker-alt mr-3 text-center" style="width: 16px;"/>
+                    <span class="fas fa-map-marker-alt"
+                    style="width: 16px;"></span>
                     桃園市中壢區永嘉街25號3樓
                   </li>
                 </ul>
                 <p>
                   僅提供現場車款，不收取任何費用。
                 </p>
-                <div class="text-center text-md-left">
-                  <a href="https://en.wikipedia.org/wiki/Premium_Rush" target="_blank"
-                  class="btn btn-primary px-5">
-                    預約體驗
-                  </a>
-                </div>
+                <a href="https://www.facebook.com/pg/WheelTalkFixed/about/?ref=page_internal" target="_blank"
+                class="btn btn-primary px-5">
+                  預約體驗
+                </a>
               </div>
             </div>
           </div>
@@ -138,7 +161,9 @@
       </section>
       <section class="container l-section">
         <div class="text-center mb-5">
-          <h2 class="mb-3 l-section__title">專業推薦</h2>
+          <h2 class="mb-3 l-section__title">
+            專業推薦
+          </h2>
         </div>
         <div class="row">
           <div class="col-md-4">
@@ -189,6 +214,8 @@ import swiperData from '@/mixins/swiperData';
 // components
 import FrontHeader from '@/components/Front/FrontHeader.vue';
 import FrontHomeVideo from '@/components/Front/FrontHomeVideo.vue';
+// 影片套件
+import LazyYoutubeVideo from 'vue-lazy-youtube-video';
 
 export default {
   name: 'FrontHome',
@@ -197,6 +224,8 @@ export default {
       status: {
         isLoading: false,
       },
+      elHeight: 0,
+      windowHeight: 0,
     };
   },
   mixins: [
@@ -208,12 +237,27 @@ export default {
   components: {
     FrontHeader,
     FrontHomeVideo,
+    LazyYoutubeVideo,
+  },
+  methods: {
+    toCategory(category) {
+      // 避開 A 元件 轉 B 元件還未註冊監聽事件問題
+      setTimeout(() => {
+        this.$bus.$emit('message:category', category);
+      }, 500);
+      this.$router.push('/category');
+    },
+    scrollAutoPlay() {
+      this.windowHeight = window.scrollY;
+      this.elHeight = document.querySelector('#playerContainer').offsetHeight;
+    },
   },
   computed: {
     getCategory() {
+      const vm = this;
       const temp = [];
       // 過濾重覆 category 值
-      this.allProducts.forEach((element) => {
+      vm.allProducts.forEach((element) => {
         if (!temp.includes(element.category)) {
           temp.push(element.category);
         }
@@ -222,22 +266,27 @@ export default {
       return temp.sort(() => 0 - 1);
     },
     filterProducts() {
-      const temp = [...this.allProducts];
+      const vm = this;
+      const temp = [...vm.allProducts];
       // 空字串反轉 true
-      if (!this.categoryProduct) {
+      if (!vm.categoryProduct) {
         return temp;
       }
-      const filter = temp.filter((element) => (element.category === this.categoryProduct));
+      const filter = temp.filter((element) => (element.category === vm.categoryProduct));
       return filter;
     },
   },
   created() {
     this.getProducts();
     this.getCart();
+    window.addEventListener('scroll', this.scrollAutoPlay);
+  },
+  destroyed() {
+    window.removeEventListener('scroll', this.scrollAutoPlay);
   },
 };
 </script>
 
 <style lang="scss" scoped>
-
+@import '~vue-lazy-youtube-video/dist/style.css';
 </style>

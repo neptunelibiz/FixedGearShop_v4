@@ -1,44 +1,50 @@
 <template>
   <div>
-    <loading :active.sync="status.isLoading"/>
+    <loading :active.sync="status.isLoading">
+      <template name="default">
+        <div class="lds-ripple"><div></div><div></div></div>
+      </template>
+    </loading>
     <div class="form-inline my-2">
       <button class="btn btn-sm btn-primary ml-auto"
       @click="openModal(true)">新增優惠卷</button>
     </div>
-    <table class="table table-sm table-hover">
-      <thead>
-        <tr class="text-center">
-          <th scope="col">優惠碼</th>
-          <th scope="col">名稱</th>
-          <th scope="col" style="width: 10%">折扣百分比</th>
-          <th scope="col" style="width: 12%">到期日</th>
-          <th scope="col" style="width: 12%">是否啟用</th>
-          <th scope="col" style="width: 12%">編輯</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr class="text-center" v-for="(coupon, key) in coupons" :key="key">
-          <td scope="row" class="align-middle">{{coupon.code}}</td>
-          <td class="align-middle">{{coupon.title}}</td>
-          <td class="align-middle">{{coupon.percent}}</td>
-          <td class="align-middle">{{coupon.due_date | date}}</td>
-          <td v-if="coupon.is_enabled" class="text-success align-middle">已啟用</td>
-          <td v-else class="text-danger align-middle">未啟用</td>
-          <td class="align-middle">
-            <div class="btn-group btn-group-sm" role="group">
-              <button type="button" class="btn btn-primary"
-              @click="openModal(false,coupon)">
-                編輯
-              </button>
-              <button type="button" class="btn btn-outline-danger"
-              @click="openDelModal(coupon)">
-                刪除
-              </button>
-            </div>
-          </td>
-        </tr>
-      </tbody>
-    </table>
+    <div class="table-responsive-lg mb-3">
+      <table class="table table-sm text-nowrap table-hover">
+        <thead>
+          <tr class="text-center">
+            <th scope="col">優惠碼</th>
+            <th scope="col">名稱</th>
+            <th scope="col" style="width: 10%">折扣百分比</th>
+            <th scope="col" style="width: 12%">到期日</th>
+            <th scope="col" style="width: 12%">是否啟用</th>
+            <th scope="col" style="width: 12%">編輯</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr class="text-center" v-for="(coupon, key) in coupons" :key="key">
+            <td scope="row" class="align-middle">{{ coupon.code }}</td>
+            <td class="align-middle">{{ coupon.title }}</td>
+            <td class="align-middle">{{ coupon.percent }}</td>
+            <td class="align-middle">{{ coupon.due_date | date }}</td>
+            <td v-if="coupon.is_enabled" class="text-success align-middle">已啟用</td>
+            <td v-else class="text-danger align-middle">未啟用</td>
+            <td class="align-middle">
+              <div class="btn-group btn-group-sm" role="group">
+                <button type="button" class="btn btn-primary"
+                @click="openModal(false,coupon)">
+                  編輯
+                </button>
+                <button type="button" class="btn btn-outline-danger"
+                @click="openDelModal(coupon)">
+                  刪除
+                </button>
+              </div>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
     <shared-pagination :pagesData="pagination" @current-page="getCoupon"/>
     <!-- Modal -->
     <div class="modal fade" id="CouponModal" tabindex="-1" role="dialog"
@@ -82,7 +88,7 @@
                       <ValidationProvider name="到期日" rules="required"
                       v-slot="{ errors, classes }" immediate>
                         <datepicker class="text-dark" :value="due_date" @selected="ComponentDate"
-                        :input-class="['form-control',classes,]"></datepicker>
+                        :input-class="[ 'form-control',classes ]"></datepicker>
                         <span class="text-danger">{{ errors[0] }}</span>
                       </ValidationProvider>
                     </div>
@@ -137,7 +143,8 @@
             </button>
           </div>
           <div class="modal-body">
-            是否刪除 <strong class="text-danger">{{ tempCoupon.title }}</strong> 優惠卷(刪除後將無法恢復)。
+            是否刪除 <strong class="text-danger">{{ tempCoupon.title }}</strong>
+            優惠卷(刪除後將無法恢復)。
           </div>
           <div class="modal-footer border-0">
             <button type="button" class="btn btn-outline-white px-4"
@@ -197,7 +204,9 @@ export default {
         if (response.data.success) {
           vm.coupons = response.data.coupons;
           vm.pagination = response.data.pagination;
-          vm.status.isLoading = false;
+          setTimeout(() => {
+            vm.status.isLoading = false;
+          }, 500);
         }
       });
     },

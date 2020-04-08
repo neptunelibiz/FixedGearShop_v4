@@ -1,34 +1,40 @@
 <template>
   <div>
-    <loading :active.sync="status.isLoading"/>
-    <table class="table table-sm table-hover">
-      <thead>
-        <tr class="text-center">
-          <th scope="col" class="border-top-0">購買時間</th>
-          <th scope="col" class="border-top-0">Email</th>
-          <th scope="col" class="border-top-0">購買品項</th>
-          <th scope="col" class="border-top-0">應付款項</th>
-          <th scope="col" class="border-top-0">付款狀態</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr class="text-center" v-for="(order,key) in sortOrder" :key="key">
-          <td scope="row" class="align-middle">{{order.create_at | date}}</td>
-          <td class="align-middle">{{order.user.email}}</td>
-          <td class="text-left">
-            <ul class="list-unstyled">
-              <li v-for="(product, key) in order.products" :key="key">
-                {{ product.product.title }} 數量：{{ product.qty }}
-                {{ product.product.unit }}
-              </li>
-            </ul>
-          </td>
-          <td class="text-right align-middle">{{order.total | currency}}</td>
-          <td v-if="order.is_paid" class="text-success align-middle">已付款</td>
-          <td v-else class="text-danger align-middle">未付款</td>
-        </tr>
-      </tbody>
-    </table>
+    <loading :active.sync="status.isLoading">
+      <template name="default">
+        <div class="lds-ripple"><div></div><div></div></div>
+      </template>
+    </loading>
+    <div class="table-responsive-lg mb-3">
+      <table class="table table-sm text-nowrap table-hover">
+        <thead>
+          <tr class="text-center">
+            <th scope="col" class="border-top-0">購買時間</th>
+            <th scope="col" class="border-top-0">Email</th>
+            <th scope="col" class="border-top-0">購買品項</th>
+            <th scope="col" class="border-top-0">應付款項</th>
+            <th scope="col" class="border-top-0">付款狀態</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr class="text-center" v-for="(order,key) in sortOrder" :key="key">
+            <td scope="row" class="align-middle">{{ order.create_at | date }}</td>
+            <td class="align-middle">{{ order.user.email }}</td>
+            <td class="text-left">
+              <ul class="list-unstyled mb-0">
+                <li v-for="(product, key) in order.products" :key="key">
+                  {{ product.product.title }} 數量：{{ product.qty }}
+                  {{ product.product.unit }}
+                </li>
+              </ul>
+            </td>
+            <td class="text-right align-middle">{{ order.total | currency }}</td>
+            <td v-if="order.is_paid" class="text-success align-middle">已付款</td>
+            <td v-else class="text-danger align-middle">未付款</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
     <shared-pagination :pagesData="pagination" @current-page="getOrders"/>
   </div>
 </template>
@@ -60,7 +66,9 @@ export default {
         if (response.data.success) {
           vm.orders = response.data.orders;
           vm.pagination = response.data.pagination;
-          vm.status.isLoading = false;
+          setTimeout(() => {
+            vm.status.isLoading = false;
+          }, 500);
         }
       });
     },
