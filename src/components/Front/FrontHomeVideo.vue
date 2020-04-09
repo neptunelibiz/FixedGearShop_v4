@@ -1,8 +1,8 @@
 <template>
   <section class="videoContainer" :style="containerStyle">
-    <video class="videoContainer__video"
+    <video class="videoContainer__video" v-if="desktopShow"
     type="video/mp4"
-    playinline autoplay muted loop
+    playinline autoplay muted loop preload="auto"
     :src="require('@/assets/video/headerVideo.mp4')"/>
     <div class="videoContainer__text">
       <h2 class="mb-3">
@@ -21,6 +21,11 @@ export default {
   props: {
     containerStyle: String,
   },
+  data() {
+    return {
+      desktopShow: window.screen.width >= 768,
+    };
+  },
 };
 </script>
 
@@ -29,6 +34,13 @@ export default {
 .videoContainer {
   position: relative;
   overflow: hidden;
+  background-color: black;
+  @media (max-width: 767px) {
+    background-image: url('~@/assets/images/frontHeroHome.png');
+    background-attachment: fixed;
+    background-position: center;
+    background-size: cover;
+  }
   .videoContainer__video {
     position: absolute;
     right: 0;
@@ -42,6 +54,11 @@ export default {
     transform: translate(-50%, -50%);
     color: white;
     text-align: center;
+    @media (max-width: 767px) {
+      h2 {
+        font-size: 1.75rem;
+      }
+    }
   }
 }
 </style>
