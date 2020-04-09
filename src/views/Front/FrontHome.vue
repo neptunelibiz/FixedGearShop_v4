@@ -38,7 +38,7 @@
             <div class="row align-items-center" id="playerContainer">
               <div class="col-md-6 p-0">
                 <lazy-youtube-video
-                v-if="videoplayed"
+                v-show="videoplayed"
                 :autoplay="true"
                 src="https://www.youtube.com/embed/Pn6ie1zCkZU"
                 aspectRatio="4:3"/>

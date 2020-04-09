@@ -12,7 +12,7 @@
       <front-hero :container-style="'height: 60vh'"/>
       <div class="container">
         <nav aria-label="breadcrumb">
-          <ol class="breadcrumb bg-transparent h5 border-bottom rounded-0 mb-5">
+          <ol class="breadcrumb bg-transparent h5 border-bottom rounded-0 mb-4">
             <li class="breadcrumb-item">
               <router-link to="/">首頁</router-link>
             </li>
@@ -22,7 +22,7 @@
           </ol>
         </nav>
         <div class="row">
-          <div class="col-md-2">
+          <div class="col-md-2 mb-4">
             <ul class="nav flex-md-column justify-content-md-center h5">
               <li class="nav-item">
                 <a class="nav-link" href="#" :class="{ 'active': categoryProduct === '' }"
