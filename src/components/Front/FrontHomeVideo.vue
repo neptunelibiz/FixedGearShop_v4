@@ -1,7 +1,8 @@
 <template>
   <section class="videoContainer" :style="containerStyle">
-    <video class="videoContainer__video d-none d-md-block" type="video/mp4"
-    autoplay="true" muted="true" loop="true"
+    <video class="videoContainer__video"
+    type="video/mp4"
+    playinline autoplay muted loop
     :src="require('@/assets/video/headerVideo.mp4')"/>
     <div class="videoContainer__text">
       <h2 class="mb-3">
@@ -28,10 +29,6 @@ export default {
 .videoContainer {
   position: relative;
   overflow: hidden;
-  background-image: url('~@/assets/images/frontHeroHome.png');
-  background-attachment: fixed;
-  background-position: center;
-  background-size: cover;
   .videoContainer__video {
     position: absolute;
     right: 0;

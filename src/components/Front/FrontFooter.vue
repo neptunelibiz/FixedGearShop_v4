@@ -40,7 +40,7 @@
               </a>
             </li>
             <li>
-              <a href="https://github.com/Albertnotes" class="h2"
+              <a href="https://github.com/Albertnotes/FixedGearShop_v4" class="h2"
               target="_blank">
                 <span class="fab fa-github"></span>
               </a>

@@ -35,7 +35,7 @@
               </router-link>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="https://github.com/Albertnotes"
+              <a class="nav-link" href="https://github.com/Albertnotes/FixedGearShop_v4"
               target="_blank">
                 作者
               </a>
