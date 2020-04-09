@@ -14,13 +14,13 @@
       </keep-alive>
       <section class="container l-section">
         <h2 class="l-section__title">
-          分類導覽
+          產品導覽
         </h2>
         <div class="row">
           <div class="col-md-4" v-for="(category, index) in getCategory" :key="index">
             <figure class="l-sectionImage" :class="`l-sectionImage--${index + 1}`">
               <figcaption>
-                <a href="#" class="l-sectionImage__text h3"
+                <a href="#" class="l-sectionImage__text h4"
                 @click.prevent="toCategory(category)">
                   {{ category }}
                 </a>

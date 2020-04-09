@@ -20,7 +20,7 @@
         </div>
         <div class="col-md-6 l-footer__menu">
           <h5 class="text-right">友站連結</h5>
-          <ul class="nav justify-content-end">
+          <ul class="nav justify-content-end mb-3">
             <li>
               <a href="https://www.facebook.com/WheelTalkFixed/"
               class="h2 mr-3" target="_blank">
@@ -46,6 +46,7 @@
               </a>
             </li>
           </ul>
+          <p class="text-right">{{ author }} © {{ year }}</p>
         </div>
       </div>
     </div>
@@ -55,6 +56,12 @@
 <script>
 export default {
   name: 'FrontFooter',
+  data() {
+    return {
+      author: 'Albert',
+      year: new Date().getFullYear(),
+    };
+  },
   methods: {
     scrollToTop() {
       window.scrollTo({

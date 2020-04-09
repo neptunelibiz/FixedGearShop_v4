@@ -21,7 +21,6 @@
     "vue-lazy-youtube-video": "^2.0.0",
     "vue-loading-overlay": "^3.3.2",
     "vue-router": "^3.1.5",
-    "vue-youtube-embed": "^2.2.2",
     "vuejs-datepicker": "^1.6.2"
   },
   "devDependencies": {

@@ -1,6 +1,6 @@
 <template>
   <section class="videoContainer" :style="containerStyle">
-    <video class="videoContainer__video" type="video/mp4"
+    <video class="videoContainer__video d-none d-md-block" type="video/mp4"
     autoplay="true" muted="true" loop="true"
     :src="require('@/assets/video/headerVideo.mp4')"/>
     <div class="videoContainer__text">
@@ -14,6 +14,7 @@
 </template>
 
 <script>
+
 export default {
   name: 'FrontHomeVideo',
   props: {
@@ -27,6 +28,8 @@ export default {
 .videoContainer {
   position: relative;
   overflow: hidden;
+  background-image: url('~@/assets/images/section/section_1.png');
+  background-attachment: fixed;
   .videoContainer__video {
     position: absolute;
     right: 0;

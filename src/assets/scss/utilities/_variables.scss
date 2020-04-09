@@ -1,4 +1,3 @@
-@import url('https://fonts.googleapis.com/earlyaccess/cwtexyen.css');
 @import url('https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700&display=swap');
 
 // Variables
@@ -209,7 +208,7 @@ $component-active-bg:         $gray-800 !default;
 
 // stylelint-disable value-keyword-case
 // $font-family-sans-serif:      -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji" !default;
-$font-family-sans-serif:      'Open Sans', 'cwTeXYen', Arial, sans-serif;
+$font-family-sans-serif:      'Open Sans', 'Microsoft JhengHei', Arial, sans-serif;
 $font-family-monospace:       SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace !default;
 $font-family-base:            $font-family-sans-serif !default;
 // stylelint-enable value-keyword-case
