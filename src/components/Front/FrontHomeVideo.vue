@@ -30,6 +30,8 @@ export default {
   overflow: hidden;
   background-image: url('~@/assets/images/section/section_1.png');
   background-attachment: fixed;
+  background-position: left;
+  background-size: cover;
   .videoContainer__video {
     position: absolute;
     right: 0;
