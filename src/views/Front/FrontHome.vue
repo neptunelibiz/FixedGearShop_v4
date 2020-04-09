@@ -36,14 +36,14 @@
         <div class="bg-light">
           <div class="container">
             <div class="row align-items-center" id="playerContainer">
-              <div class="col-md-6 p-0">
+              <div class="col-lg-6 p-0">
                 <lazy-youtube-video
-                v-show="videoplayed"
+                v-if="videoshow"
                 :autoplay="true"
                 src="https://www.youtube.com/embed/Pn6ie1zCkZU"
                 aspectRatio="4:3"/>
               </div>
-              <div class="col-md-6 l-section__about p-5">
+              <div class="col-lg-6 l-section__about p-5">
                 <p>
                   Fixed Gear 的真正興起要歸功於紐約的 Bike Messenger 們，
                   時間撥回上個世紀 70 年代末，美國的汽車數量和出行使用率呈
@@ -224,7 +224,7 @@ export default {
       status: {
         isLoading: false,
       },
-      videoplayed: false,
+      videoshow: true, // 預設顯示
     };
   },
   mixins: [
@@ -253,14 +253,23 @@ export default {
       const intersectionObserver = new IntersectionObserver((entries) => {
         entries.forEach((entry) => {
           if (entry.isIntersecting) {
-            vm.videoplayed = true;
+            vm.videoshow = true;
           } else {
-            vm.videoplayed = false;
+            vm.videoshow = false;
           }
         });
       });
       const el = document.querySelector('#playerContainer');
-      intersectionObserver.observe(el);
+      const vw = window.screen.width;
+      /**
+       * 影片 template 39 - 45行
+       * 螢幕斷點 min-width 992px 兩欄式
+       * 執行 IntersectionObserver API 滾動播放
+       * 註記：mobile不支援autoplay播放
+       */
+      if (vw >= 992) {
+        intersectionObserver.observe(el);
+      }
     },
   },
   computed: {
