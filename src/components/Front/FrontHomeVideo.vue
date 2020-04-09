@@ -28,9 +28,9 @@ export default {
 .videoContainer {
   position: relative;
   overflow: hidden;
-  background-image: url('~@/assets/images/section/section_1.png');
+  background-image: url('~@/assets/images/frontHeroHome.png');
   background-attachment: fixed;
-  background-position: left;
+  background-position: center;
   background-size: cover;
   .videoContainer__video {
     position: absolute;
