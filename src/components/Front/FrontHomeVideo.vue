@@ -37,9 +37,9 @@ export default {
   background-color: black;
   @media (max-width: 767px) {
     background-image: url('~@/assets/images/frontHeroHome.png');
-    background-attachment: fixed;
     background-position: center;
     background-size: cover;
+    background-repeat: no-repeat;
   }
   .videoContainer__video {
     position: absolute;
