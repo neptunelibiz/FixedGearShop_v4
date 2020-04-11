@@ -1,7 +1,7 @@
 <template>
-  <div>
+  <div class="l-stickyFooter">
     <shared-alert/>
-    <router-view/>
+    <router-view class="l-stickyFooter__main"/>
     <front-footer/>
   </div>
 </template>

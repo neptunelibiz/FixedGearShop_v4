@@ -16,8 +16,8 @@
         <h2 class="l-section__title">
           產品導覽
         </h2>
-        <div class="row">
-          <div class="col-md-4" v-for="(category, index) in getCategory" :key="index">
+        <div class="row mb-n4 mb-md-0">
+          <div class="col-md-4 mb-4 mb-md-0" v-for="(category, index) in getCategory" :key="index">
             <figure class="l-sectionImage" :class="`l-sectionImage--${index + 1}`">
               <figcaption>
                 <a href="#" class="l-sectionImage__text h4"
@@ -166,7 +166,7 @@
           </h2>
         </div>
         <div class="row">
-          <div class="col-md-4">
+          <div class="col-md-4 mb-4 mb-md-0">
             <figure class="l-sectionImage l-sectionImage--4">
               <figcaption>
                 <a href="http://www.wheeltalkfixed.com/2017/fgfs-portland-day-1/"
@@ -177,7 +177,7 @@
               </figcaption>
             </figure>
           </div>
-          <div class="col-md-4">
+          <div class="col-md-4 mb-4 mb-md-0">
             <figure class="l-sectionImage l-sectionImage--5">
               <figcaption>
                 <a href="http://www.wheeltalkfixed.com/2018/fixed-gear-portland-this-is-a-sign/"

@@ -1,16 +1,18 @@
 <template>
   <div>
     <figure class="hero" :style="containerStyle">
-      <div class="hero__text">
-        <h2 class="mb-3">
-          有些事現在不做<br/>
-          一輩子也不會做了<br/>
-          現在去環島
-        </h2>
-        <button type="button" class="btn btn-lg btn-danger"
-        data-toggle="modal" data-target="#exampleModal">
-          馬上領取
-        </button>
+      <div class="hero__overlay">
+        <div class="hero__overlay__text">
+          <h2 class="mb-3">
+            有些事現在不做<br/>
+            一輩子也不會做了<br/>
+            現在去環島
+          </h2>
+          <button type="button" class="btn btn-lg btn-danger"
+          data-toggle="modal" data-target="#exampleModal">
+            馬上領取
+          </button>
+        </div>
       </div>
     </figure>
     <!-- Modal -->
@@ -53,17 +55,26 @@ export default {
 
 <style lang="scss" scoped>
 .hero {
-  display: flex;
-  justify-content: center;
-  align-items: center;
   background-image: url('~@/assets/images/frontHeroCategory.png');
   background-size: cover;
-  background-position: top center;
+  background-position: top;
   width: 100%;
   margin-bottom: 0;
-  .hero__text {
-    color: white;
-    text-align: center;
+  position: relative;
+  .hero__overlay {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: absolute;
+    top: 0;
+    right: 0;
+    left: 0;
+    bottom: 0;
+    background-color: rgba(black, $alpha: .3);
+    .hero__overlay__text {
+      color: white;
+      text-align: center;
+    }
   }
 }
 </style>

@@ -62,9 +62,13 @@ export default {
 <style lang="scss" scoped>
 .message-alert {
   position: fixed;
-  max-width: 50%;
-  top: 106px;
+  width: max-content;
+  top: 75px;
   right: 20px;
   z-index: 1100;
+  @media (max-width:767px) {
+    left: 50%;
+    transform: translateX(-50%);
+  }
 }
 </style>

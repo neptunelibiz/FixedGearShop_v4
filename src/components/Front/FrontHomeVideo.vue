@@ -2,7 +2,7 @@
   <section class="videoContainer" :style="containerStyle">
     <video class="videoContainer__video" v-if="desktopShow"
     type="video/mp4"
-    playinline autoplay muted loop preload="auto"
+    playinline autoplay muted loop
     :src="require('@/assets/video/headerVideo.mp4')"/>
     <div class="videoContainer__text">
       <h2 class="mb-3">

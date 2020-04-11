@@ -3,7 +3,7 @@
     <nav class="navbar navbar-expand-md"
     :class="[{ 'navbar--dark': scrolled }, navClass]">
       <div class="container">
-        <router-link class="navbar-brand" to="/">
+        <router-link class="navbar-brand mr-2" to="/">
           <img class="navbar-brand__img"
           :src="require('@/assets/images/WheelTalk_Logo.png')" alt="">
         </router-link>
@@ -58,10 +58,10 @@
             </button>
           </div>
           <div class="modal-body">
-            <div class="table-responsive-lg" v-if="cartCurrentNumber > 0">
-              <table class="table table-dark table-hover
-              text-nowrap text-center">
-                <thead class="thead-light">
+            <div v-if="cartCurrentNumber > 0">
+              <table class="table d-none d-md-table table-dark table-hover
+              text-center">
+                <thead class="thead-light text-nowrap">
                   <th style="width: 5%">刪除</th>
                   <th>品名</th>
                   <th style="width: 10%">數量</th>
@@ -71,8 +71,7 @@
                 <tbody>
                   <tr v-for="(cart,key) in carts.carts" :key="key">
                     <td class="align-middle">
-                      <button type="button"
-                      class="btn btn-outline-danger btn-sm"
+                      <button type="button" class="btn btn-outline-danger btn-sm"
                       @click="deleteCart(cart.id)">
                         <i class="far fa-trash-alt"></i>
                       </button>
@@ -89,23 +88,20 @@
                         :disabled="cart.qty === 1"
                         @click="cart.qty--;
                         updateCartQty(cart.product_id, cart.qty, cart.id);">
-                          <span class="fas fa-minus"></span>
+                          <i class="fas fa-minus"></i>
                         </button>
-                        <input type="text" class="form-control" v-model="cart.qty" disabled>
+                        <input type="text" class="form-control" v-model="cart.qty"
+                        disabled>
                         <button class="btn c-inputGroup__plusBtn"
                         :disabled="cart.qty === 10"
                           @click="cart.qty++;
                           updateCartQty(cart.product_id, cart.qty, cart.id);">
-                          <span class="fas fa-plus"></span>
+                          <i class="fas fa-plus"></i>
                         </button>
                       </div>
                     </td>
-                    <td class="align-middle text-right">
-                      {{ cart.total | currency }}
-                    </td>
-                    <td class="align-middle text-right">
-                      {{ cart.final_total | currency }}
-                    </td>
+                    <td class="align-middle text-right">{{ cart.total | currency }}</td>
+                    <td class="align-middle text-right">{{ cart.final_total | currency }}</td>
                   </tr>
                 </tbody>
                 <tfoot>
@@ -119,19 +115,76 @@
                   </tr>
                 </tfoot>
               </table>
+              <table class="table d-table d-md-none  table-dark table-hover
+              text-center">
+                <tbody class="border-0" v-for="(cart,key) in carts.carts" :key="key">
+                  <tr>
+                    <td class="align-middle" colspan="2">
+                      {{ cart.product.title }}
+                      <div class="text-success" v-if="cart.coupon">
+                        已套用優惠券
+                      </div>
+                    </td>
+                    <td class="align-middle" colspan="2" style="width: 5%;">
+                      <div class="c-inputGroup">
+                        <button class="btn c-inputGroup__minusBtn"
+                        :disabled="cart.qty === 1"
+                        @click="cart.qty--;
+                        updateCartQty(cart.product_id, cart.qty, cart.id);">
+                          <i class="fas fa-minus"></i>
+                        </button>
+                        <input type="text" class="form-control" v-model="cart.qty"
+                        disabled>
+                        <button class="btn c-inputGroup__plusBtn"
+                        :disabled="cart.qty === 10"
+                          @click="cart.qty++;
+                          updateCartQty(cart.product_id, cart.qty, cart.id);">
+                          <i class="fas fa-plus"></i>
+                        </button>
+                      </div>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td class="align-middle border-0">
+                      <button type="button" class="btn btn-outline-danger btn-sm"
+                      @click="deleteCart(cart.id)">
+                        <i class="far fa-trash-alt"></i>
+                      </button>
+                    </td>
+                    <td class="align-middle text-right border-0" v-if="cart.product.price">
+                      {{ cart.product.price | currency }}
+                    </td>
+                    <td class="align-middle text-right border-0" v-else>
+                      {{ cart.product.origin_price | currency }}
+                    </td>
+                    <td class="align-middle text-right border-0">
+                      {{ cart.final_total | currency }}
+                    </td>
+                  </tr>
+                </tbody>
+                <tfoot>
+                  <tr>
+                    <td colspan="2" class="text-right">總計</td>
+                    <td class="text-right">{{ carts.total | currency }}</td>
+                  </tr>
+                  <tr v-if="carts.final_total !== carts.total">
+                    <td colspan="2" class="text-right text-success">折扣價</td>
+                    <td class="text-right text-success">{{ carts.final_total | currency }}</td>
+                  </tr>
+                </tfoot>
+              </table>
             </div>
-            <div class="l-cartImage" v-else>
-              <img class="img-fluid" :src="require('@/assets/images/cartImage.png')" alt="">
-              <div class="l-cartImage__text">
-                <h4 class="font-weight-bold">
-                  購物車是空的<br/>
-                  請先去逛一逛賣場
-                </h4>
-                <router-link to="/category" class="btn btn-danger"
-                data-dismiss="modal">
-                  前往產品
-                </router-link>
-              </div>
+            <div class="d-flex justify-content-center flex-column align-items-center" v-else
+              style="padding-bottom: 62px;">
+              <img class="img-fluid mx-auto d-block" width="190"
+              :src="require('@/assets/images/first-bike-gif.gif')" alt="">
+              <h5 class="font-weight-bold">
+                購物車目前沒有內容<br/>
+              </h5>
+              <router-link to="/category" class="btn btn-danger"
+              data-dismiss="modal">
+                返回產品
+              </router-link>
             </div>
           </div>
           <div class="modal-footer border-0" v-if="cartCurrentNumber > 0">
@@ -285,7 +338,7 @@ select.form-control {
   text-align-last:center;
 }
 .navbar-brand__img {
-  height: 16px;
+  height: 24px;
   @media (min-width: 768px) {
     height: 32px;
   }
@@ -293,6 +346,7 @@ select.form-control {
 .navbar-nav > .nav-item {
   .nav-link {
     padding: .75rem 1rem;
+    height: 50px;
     color: rgba(black,.5);
     &:hover, &:active, &.active {
       color: black;
@@ -326,6 +380,7 @@ select.form-control {
 .navbar-toggler {
   border: none;
   cursor: pointer;
+  height: 50px;
   &:focus{
     outline: none !important;
   }
@@ -334,7 +389,7 @@ select.form-control {
   .navbar-nav {
     background-color: #fff;
     border-radius: .25rem;
-    text-align: right;
+    text-align: left;
     padding: 1.5rem 3rem;
     .nav-link {
       border-bottom: 1px dashed rgba(0,0,0,.25);

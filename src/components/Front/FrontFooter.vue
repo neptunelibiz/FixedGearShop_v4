@@ -1,5 +1,6 @@
 <template>
-  <footer class="l-footer position-relative py-5">
+  <footer
+  class="l-footer l-stickyFooter__footer position-relative py-5">
     <div class="container">
       <div class="row">
         <div class="c-mouse">
@@ -19,7 +20,6 @@
           <p>資料、圖片來源皆來自網路，僅用來做為學習用途。</p>
         </div>
         <div class="col-md-6 l-footer__menu">
-          <h5 class="text-right">友站連結</h5>
           <ul class="nav justify-content-end mb-3">
             <li>
               <a href="https://www.facebook.com/WheelTalkFixed/"

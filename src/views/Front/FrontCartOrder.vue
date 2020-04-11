@@ -14,7 +14,7 @@
         <h2 class="l-section__title" v-else>付款完成</h2>
         <div class="row justify-content-center" v-if="order.is_paid === false">
           <form class="col-md-10" @submit.prevent="payOrder">
-            <table class="table">
+            <table class="table d-none d-md-table table-hover">
               <thead class="thead-dark text-center">
                 <th>品名</th>
                 <th>數量</th>
@@ -40,7 +40,30 @@
                 </tr>
               </tfoot>
             </table>
-            <table class="table">
+            <table class="table d-table d-md-none table-hover">
+              <tbody class="border-0" v-for="item in order.products" :key="item.id">
+                <tr>
+                  <td class="align-middle" colspan="2">
+                    {{ item.product.title }}
+                  </td>
+                </tr>
+                <tr>
+                  <td class="align-middle border-0">
+                    {{ item.qty }}/{{ item.product.unit }}
+                  </td>
+                  <td class="align-middle text-right border-0">
+                    {{ item.final_total | currency }}
+                  </td>
+                </tr>
+              </tbody>
+              <tfoot>
+                <tr>
+                  <td class="text-right">總計</td>
+                  <td class="text-right">{{ order.total | currency }}</td>
+                </tr>
+              </tfoot>
+            </table>
+            <table class="table table-hover">
               <tbody>
                 <tr>
                   <th style="width: 100px;">Email</th>

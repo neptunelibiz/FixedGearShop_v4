@@ -13,63 +13,118 @@
         <h2 class="l-section__title">購物車內容</h2>
         <div class="row justify-content-center">
           <div class="col-md-10">
-            <div class="table-responsive-lg mb-3">
-              <table class="table table-hover text-nowrap text-center">
-                <thead class="thead-dark">
-                  <th style="width: 5%">刪除</th>
-                  <th>品名</th>
-                  <th style="width: 10%">數量</th>
-                  <th>單價</th>
-                  <th>總計</th>
-                </thead>
-                <tbody>
-                  <tr v-for="(cart,key) in carts.carts" :key="key">
-                    <td class="align-middle">
-                      <button type="button" class="btn btn-outline-danger btn-sm"
-                      @click="deleteCart(cart.id)">
-                        <i class="far fa-trash-alt"></i>
+            <table class="table d-none d-md-table table-hover text-center">
+              <thead class="thead-dark text-nowrap">
+                <th style="width: 5%">刪除</th>
+                <th>品名</th>
+                <th style="width: 10%">數量</th>
+                <th>單價</th>
+                <th>總計</th>
+              </thead>
+              <tbody>
+                <tr v-for="(cart,key) in carts.carts" :key="key">
+                  <td class="align-middle">
+                    <button type="button" class="btn btn-outline-danger btn-sm"
+                    @click="deleteCart(cart.id)">
+                      <i class="far fa-trash-alt"></i>
+                    </button>
+                  </td>
+                  <td class="align-middle">
+                    {{ cart.product.title }}
+                    <div class="text-success" v-if="cart.coupon">
+                      已套用優惠券
+                    </div>
+                  </td>
+                  <td class="align-middle">
+                    <div class="c-inputGroup">
+                      <button class="btn c-inputGroup__minusBtn"
+                      :disabled="cart.qty === 1"
+                      @click="cart.qty--;
+                      updateCartQty(cart.product_id, cart.qty, cart.id);">
+                        <i class="fas fa-minus"></i>
                       </button>
-                    </td>
-                    <td class="align-middle">
-                      {{ cart.product.title }}
-                      <div class="text-success" v-if="cart.coupon">
-                        已套用優惠券
-                      </div>
-                    </td>
-                    <td class="align-middle">
-                      <div class="c-inputGroup">
-                        <button class="btn c-inputGroup__minusBtn"
-                        :disabled="cart.qty === 1"
-                        @click="cart.qty--;
+                      <input type="text" class="form-control" v-model="cart.qty"
+                      disabled>
+                      <button class="btn c-inputGroup__plusBtn"
+                      :disabled="cart.qty === 10"
+                        @click="cart.qty++;
                         updateCartQty(cart.product_id, cart.qty, cart.id);">
-                          <i class="fas fa-minus"></i>
-                        </button>
-                        <input type="text" class="form-control" v-model="cart.qty"
-                        disabled>
-                        <button class="btn c-inputGroup__plusBtn"
-                        :disabled="cart.qty === 10"
-                          @click="cart.qty++;
-                          updateCartQty(cart.product_id, cart.qty, cart.id);">
-                          <i class="fas fa-plus"></i>
-                        </button>
-                      </div>
-                    </td>
-                    <td class="align-middle text-right">{{ cart.total | currency }}</td>
-                    <td class="align-middle text-right">{{ cart.final_total | currency }}</td>
-                  </tr>
-                </tbody>
-                <tfoot>
-                  <tr>
-                    <td colspan="4" class="text-right">總計</td>
-                    <td class="text-right">{{ carts.total | currency }}</td>
-                  </tr>
-                  <tr v-if="carts.final_total !== carts.total">
-                    <td colspan="4" class="text-right text-success">折扣價</td>
-                    <td class="text-right text-success">{{ carts.final_total | currency }}</td>
-                  </tr>
-                </tfoot>
-              </table>
-            </div>
+                        <i class="fas fa-plus"></i>
+                      </button>
+                    </div>
+                  </td>
+                  <td class="align-middle text-right">{{ cart.total | currency }}</td>
+                  <td class="align-middle text-right">{{ cart.final_total | currency }}</td>
+                </tr>
+              </tbody>
+              <tfoot>
+                <tr>
+                  <td colspan="4" class="text-right">總計</td>
+                  <td class="text-right">{{ carts.total | currency }}</td>
+                </tr>
+                <tr v-if="carts.final_total !== carts.total">
+                  <td colspan="4" class="text-right text-success">折扣價</td>
+                  <td class="text-right text-success">{{ carts.final_total | currency }}</td>
+                </tr>
+              </tfoot>
+            </table>
+            <table class="table d-table d-md-none table-hover text-center">
+              <tbody class="border-0" v-for="(cart,key) in carts.carts" :key="key">
+                <tr>
+                  <td class="align-middle" colspan="2">
+                    {{ cart.product.title }}
+                    <div class="text-success" v-if="cart.coupon">
+                      已套用優惠券
+                    </div>
+                  </td>
+                  <td class="align-middle" colspan="2" style="width: 5%;">
+                    <div class="c-inputGroup">
+                      <button class="btn c-inputGroup__minusBtn"
+                      :disabled="cart.qty === 1"
+                      @click="cart.qty--;
+                      updateCartQty(cart.product_id, cart.qty, cart.id);">
+                        <i class="fas fa-minus"></i>
+                      </button>
+                      <input type="text" class="form-control" v-model="cart.qty"
+                      disabled>
+                      <button class="btn c-inputGroup__plusBtn"
+                      :disabled="cart.qty === 10"
+                        @click="cart.qty++;
+                        updateCartQty(cart.product_id, cart.qty, cart.id);">
+                        <i class="fas fa-plus"></i>
+                      </button>
+                    </div>
+                  </td>
+                </tr>
+                <tr>
+                  <td class="align-middle border-0">
+                    <button type="button" class="btn btn-outline-danger btn-sm"
+                    @click="deleteCart(cart.id)">
+                      <i class="far fa-trash-alt"></i>
+                    </button>
+                  </td>
+                  <td class="align-middle text-right border-0" v-if="cart.product.price">
+                    {{ cart.product.price | currency }}
+                  </td>
+                  <td class="align-middle text-right border-0" v-else>
+                    {{ cart.product.origin_price | currency }}
+                  </td>
+                  <td class="align-middle text-right border-0">
+                    {{ cart.final_total | currency }}
+                  </td>
+                </tr>
+              </tbody>
+              <tfoot>
+                <tr>
+                  <td colspan="2" class="text-right">總計</td>
+                  <td class="text-right">{{ carts.total | currency }}</td>
+                </tr>
+                <tr v-if="carts.final_total !== carts.total">
+                  <td colspan="2" class="text-right text-success">折扣價</td>
+                  <td class="text-right text-success">{{ carts.final_total | currency }}</td>
+                </tr>
+              </tfoot>
+            </table>
             <div class="input-group mb-3">
               <input type="text" class="form-control" v-model="coupon_code"
               style="text-align-last: center;"
@@ -141,19 +196,16 @@
         <h2 class="l-section__title l-section__title--marginTop">購物車內容</h2>
         <div class="row justify-content-center">
           <div class="col-md-10">
-            <div class="l-cartImage text-white">
-              <img class="img-fluid mx-auto d-block"
-              :src="require('@/assets/images/cartImage.png')" alt="">
-              <div class="l-cartImage__text">
-                <h4 class="font-weight-bold">
-                  購物車是空的<br/>
-                  請先去逛一逛賣場
-                </h4>
-                <router-link to="/category" class="btn btn-danger"
-                data-dismiss="modal">
-                  前往產品
-                </router-link>
-              </div>
+            <div class="d-flex justify-content-center flex-column align-items-center">
+              <img class="img-fluid mx-auto d-block" width="190"
+              :src="require('@/assets/images/first-bike-gif.gif')" alt="">
+              <h5 class="font-weight-bold">
+                購物車目前沒有內容<br/>
+              </h5>
+              <router-link to="/category" class="btn btn-danger"
+              data-dismiss="modal">
+                返回產品
+              </router-link>
             </div>
           </div>
         </div>

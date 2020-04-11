@@ -22,8 +22,8 @@
           </ol>
         </nav>
         <div class="row">
-          <div class="col-md-2 mb-4">
-            <ul class="nav flex-md-column justify-content-md-center h5">
+          <div class="col-md-3 mb-4">
+            <ul class="nav d-none d-md-flex flex-md-column justify-content-md-center h5">
               <li class="nav-item">
                 <a class="nav-link" href="#" :class="{ 'active': categoryProduct === '' }"
                   @click.prevent="categoryProduct = ''; searchProduct = ''; getProducts()">
@@ -37,10 +37,21 @@
                 </a>
               </li>
             </ul>
+            <div class="btn-group d-flex d-md-none" role="group">
+              <button type="button" class="btn btn-outline-primary"
+              @click.prevent="categoryProduct = ''; searchProduct = ''; getProducts()">
+                所有產品
+              </button>
+              <button type="button" class="btn btn-outline-primary"
+              @click.prevent="categoryProduct = category; searchProduct = ''; getProducts()"
+              v-for="(category, index) in getCategory" :key="index">
+                {{ category }}
+              </button>
+            </div>
           </div>
-          <div class="col-md-10">
+          <div class="col-md-9">
             <!-- init categoryProduct-->
-            <div class="row">
+            <div class="row mb-5">
               <div class="col-8 col-md-5">
                 <div class="input-group input-group-sm">
                   <input class="form-control"
@@ -55,7 +66,7 @@
                   </div>
                 </div>
               </div>
-              <div class="col">
+              <div class="col text-right text-md-left">
                 <select class="custom-select custom-select-sm"
                 v-model="pagination.eachPageItem"
                 @change="getProducts()">
@@ -66,7 +77,7 @@
               </div>
             </div>
             <div class="row">
-              <div class="col-md-4 col-lg-3 mt-5"
+              <div class="col-md-6 col-lg-4 col-xl-3 pb-5 border-md-bottom"
               v-for='product in products' :key="product.id">
                 <div class="card card--product">
                   <a href="#" class="card-img" @click.prevent="toDetail(product.id)">
@@ -174,5 +185,22 @@ export default {
   .custom-select {
     max-width: 5rem;
     text-align-last:center;
+  }
+  .border-md-bottom {
+    @media (max-width: 767px) {
+      position: relative;
+      &::after {
+        content: '';
+        position: absolute;
+        bottom: 0;
+        right: 15px;
+        left: 15px;
+        height: 1px;
+        background-color: #8d82a4;
+      }
+      & + & {
+        padding-top: 2rem;
+      }
+    }
   }
 </style>
