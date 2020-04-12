@@ -77,10 +77,12 @@
           </h2>
           <div class="btn-group" role="group">
             <button type="button" class="btn btn-outline-primary"
+            :class="{'active': !categoryProduct}"
             @click.prevent="categoryProduct = ''; searchProduct = ''; getProducts()">
               所有產品
             </button>
             <button type="button" class="btn btn-outline-primary"
+            :class="{'active': categoryProduct === category}"
             @click.prevent="categoryProduct = category; searchProduct = ''; getProducts()"
             v-for="(category, index) in getCategory" :key="index">
               {{ category }}
