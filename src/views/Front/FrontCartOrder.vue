@@ -66,7 +66,7 @@
             <table class="table table-hover">
               <tbody>
                 <tr>
-                  <th style="width: 100px;">Email</th>
+                  <th style="width: 110px">Email</th>
                   <td>{{ order.user.email }}</td>
                 </tr>
                 <tr>
