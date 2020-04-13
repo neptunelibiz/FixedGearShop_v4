@@ -71,13 +71,33 @@
             <table class="table d-table d-md-none table-hover text-center">
               <tbody class="border-0" v-for="(cart,key) in carts.carts" :key="key">
                 <tr>
-                  <td class="align-middle" colspan="2">
-                    {{ cart.product.title }}
-                    <div class="text-success" v-if="cart.coupon">
-                      已套用優惠券
-                    </div>
+                  <td class="align-middle" style="width: 40px;">
+                    <img :src="cart.product.imageUrl" alt="" width="40">
                   </td>
-                  <td class="align-middle" colspan="2" style="width: 5%;">
+                  <td class="align-middle text-left" colspan="2">
+                    <span class="font-weight-bold" style="font-size: 14px;">
+                      {{ cart.product.title }}
+                    </span>
+                    <br/>
+                    <span v-if="cart.product.price" style="font-size: 14px;">
+                      {{ cart.product.price | currency }}
+                    </span>
+                    <span v-else style="font-size: 14px;">
+                      {{ cart.product.origin_price | currency }}
+                    </span>
+                    <span class="text-success" v-if="cart.coupon" style="font-size: 14px;">
+                      已套用優惠券
+                    </span>
+                  </td>
+                  <td class="align-middle text-right" style="width: 35px;">
+                    <button type="button" class="btn btn-outline-danger btn-sm"
+                    @click="deleteCart(cart.id)">
+                      <i class="far fa-trash-alt"></i>
+                    </button>
+                  </td>
+                </tr>
+                <tr>
+                  <td class="align-middle border-0 p-md-margin" colspan="2">
                     <div class="c-inputGroup">
                       <button class="btn c-inputGroup__minusBtn"
                       :disabled="cart.qty === 1"
@@ -95,21 +115,7 @@
                       </button>
                     </div>
                   </td>
-                </tr>
-                <tr>
-                  <td class="align-middle border-0">
-                    <button type="button" class="btn btn-outline-danger btn-sm"
-                    @click="deleteCart(cart.id)">
-                      <i class="far fa-trash-alt"></i>
-                    </button>
-                  </td>
-                  <td class="align-middle text-right border-0" v-if="cart.product.price">
-                    {{ cart.product.price | currency }}
-                  </td>
-                  <td class="align-middle text-right border-0" v-else>
-                    {{ cart.product.origin_price | currency }}
-                  </td>
-                  <td class="align-middle text-right border-0">
+                  <td class="align-middle text-right border-0" colspan="2">
                     {{ cart.final_total | currency }}
                   </td>
                 </tr>
@@ -117,11 +123,15 @@
               <tfoot>
                 <tr>
                   <td colspan="2" class="text-right">總計</td>
-                  <td class="text-right">{{ carts.total | currency }}</td>
+                  <td colspan="2" class="text-right">{{ carts.total | currency }}</td>
                 </tr>
                 <tr v-if="carts.final_total !== carts.total">
-                  <td colspan="2" class="text-right text-success">折扣價</td>
-                  <td class="text-right text-success">{{ carts.final_total | currency }}</td>
+                  <td colspan="2" class="text-right text-success">
+                    折扣價
+                  </td>
+                  <td colspan="2" class="text-right text-success">
+                    {{ carts.final_total | currency }}
+                  </td>
                 </tr>
               </tfoot>
             </table>
@@ -244,6 +254,11 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+  .p-md-margin {
+    @media (min-width: 576px) {
+      padding-left: 76px; // 增加 1 td tag width + 12px td padding-left
+    }
+  }
   .cartImage {
     position: relative;
     .cartImage__text {
